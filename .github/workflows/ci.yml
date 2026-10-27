@@ -27,6 +27,11 @@ jobs:
           npm test
           npm run build
           npm run format:check
+      - name: Production builds must not alter reviewed source
+        run: |
+          set -euo pipefail
+          [[ -z $(git ls-files '*.tsbuildinfo') ]] || { echo 'Generated TypeScript caches must not be tracked.' >&2; exit 1; }
+          [[ -z $(git status --porcelain=v1 --untracked-files=all) ]] || { echo 'Build changed the reviewed source tree.' >&2; exit 1; }
       - name: Dependency security gate
         run: npm audit --audit-level=high
       - name: Static release package contract and real built-site inventory
