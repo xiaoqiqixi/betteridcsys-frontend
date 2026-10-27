@@ -29,3 +29,17 @@ jobs:
           npm run format:check
       - name: Dependency security gate
         run: npm audit --audit-level=high
+      - name: Static release package contract and real built-site inventory
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: |
+          python3 scripts/test_frontend_bundle.py
+          package="$RUNNER_TEMP/finance-frontend-package-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
+          python3 scripts/frontend_bundle.py build \
+            --source-root "$GITHUB_WORKSPACE" --output "$package" \
+            --source-sha "$GITHUB_SHA" --source-date-epoch "$(git show -s --format=%ct HEAD)"
+          version=$(node -p 'JSON.parse(require("fs").readFileSync("package.json", "utf8")).version')
+          core=$(node -p 'JSON.parse(require("fs").readFileSync("compatibility.json", "utf8")).core_version')
+          python3 scripts/frontend_bundle.py inspect \
+            --manifest "$package/FRONTEND.json" --archive "$package/aster-finance-frontend-$version.tar.gz" \
+            --expected-source-sha "$GITHUB_SHA" --expected-core-version "$core"

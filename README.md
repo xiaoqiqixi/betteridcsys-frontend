@@ -1,42 +1,41 @@
 # 星屿云 · 财务系统前端
 
-Vue 3 / TypeScript 客户门户与管理后台：商品选购、订单、账单、已有服务、客户和运营设置。默认中文 / CNY，语言与币种独立；金额、订单状态和操作结果由真实财务 API 决定。
+面向云服务销售的客户门户与运营后台。客户可以选择套餐、确认订单、查看账单和服务；管理员在同一站点维护商品、客户与运营设置。
 
-[财务前端](https://github.com/xiaoqiqixi/betteridcsys-frontend) · [财务后端](https://github.com/xiaoqiqixi/betteridcsys-backend) · [主控与被控](https://github.com/xiaoqiqixi/betteridcsys-cloud)
+基于 Vue 3、TypeScript 和 Vite，配合[财务后端](https://github.com/xiaoqiqixi/betteridcsys-backend)部署。默认简体中文、人民币，支持英文、美元与浅色/深色主题。
 
-## 本仓库包含什么
+[使用文档](docs/README.md) · [接口文档](docs/CONTRACT.md) · [发行版本](https://github.com/xiaoqiqixi/betteridcsys-frontend/releases) · [问题反馈](https://github.com/xiaoqiqixi/betteridcsys-frontend/issues)
 
-- `src/`：完整财务前端；客户与管理员界面、移动端导航、主题与统一控件。
-- `tests/`：组件、数据层和浏览器回归；后者需要真实后端或明确隔离的 loopback fixture。
-- `docs/`：[API 合同](docs/CONTRACT.md)、[UI 规范](docs/UI_GUIDELINES.md)及商品/财务边界说明。
-- `compatibility.json`：本轮选择的 Core 0.5.10 接口版本，不再通过扫描后端源码猜版本。
+## 主要功能
 
-不包含后端数据库、支付执行、主控或宿主机权限。页面不会把连接失败替换成演示成功。
+| 模块 | 功能 |
+| --- | --- |
+| 商品选购 | 类型 → 地区 → 节点 → 套餐，规格与价格展示、购买确认 |
+| 客户中心 | 控制台、订单与账单、付款入口、已有服务与账户设置 |
+| 运营后台 | 商品新增/复制/编辑/上下架、客户与角色、订单详情、审计记录 |
+| 站点管理 | 品牌信息、中英文内容、语言与购买币种、插件和版本信息 |
+| 多端使用 | 桌面导航、移动端抽屉与底栏、统一表单和弹层、加载/空/错误状态 |
 
-## 本地开发
+语言与购买币种可以分别设置。切换币种不换算已有订单，也不改变历史账单。付款和服务开通各有独立状态。
 
-Node.js 24.19.0；使用锁文件安装，不提交 node_modules、dist 或环境私钥。
+## 安装使用
 
-```sh
-npm ci
-npm run typecheck
-npm test
-npm run build
-npm run format:check
-# 另行启动后端；默认反代到回环 8080
-API_PROXY_TARGET=http://127.0.0.1:8080 npm run dev
-```
+**前端随财务整站安装，不需要用户编译或单独配置开发工具。**
 
-Secure Cookie 的生产联调必须采用受信任的同源 HTTPS，不能关闭浏览器安全检查。生产静态站点由 Nginx 服务 `dist/`，`/api/v1` 反代到财务后端；Vite 不是生产服务器。没有后端时只能验组件，不算购买流程或数据库验收。
+前往[财务系统安装入口](https://github.com/xiaoqiqixi/betteridcsys-backend#一键安装)，按向导完成域名、HTTPS、数据库和管理员设置，即可使用客户门户与管理后台。
 
-## CI 与发行
+定制部署可使用[发行页](https://github.com/xiaoqiqixi/betteridcsys-frontend/releases)的静态文件包，版本须与财务后端匹配。部署说明见[使用文档](docs/README.md)。
 
-`Finance frontend checks` 执行类型检查、组件/数据层测试、生产构建、格式和依赖安全扫描。CI 构建产物不是已发布版本；独立浏览器和真实 MySQL 全链仍需配对后端验收。
+## 开发说明
 
-## 拆分与交付状态
+前端定制、构建和测试见[开发文档](docs/development/README.md)，正常安装不需要执行开发命令。
 
-本仓库从已提交、通过原项目 CI 的 main `fa4d2139ff5ecfc2802c0825e839134ca488d138` 拆出，不包含原工作区未完成的 schema14/员工权限改动。保留 Apache-2.0 许可证；初始来源见 [SOURCE_ORIGIN.json](SOURCE_ORIGIN.json)。它是来源清单，不是发行签名或本仓库的验收证明。
+## 扩展与相关项目
 
-只使用 `main` 分支，不导入旧 Git 历史、贡献者署名或旧标签。原仓库 CI 结果不自动继承；本仓库构建与验收以自己的提交和运行记录为准。
+- [财务后端](https://github.com/xiaoqiqixi/betteridcsys-backend)：商品、账户、订单、账单与插件 API。
+- [云主控与 KVM 被控](https://github.com/xiaoqiqixi/betteridcsys-cloud)：计算资源与虚拟机管理。
+- [界面规范](docs/UI_GUIDELINES.md)：组件、响应式布局与可访问性约定。
 
-三个新仓库均完成构建、首版 Release、匿名产物下载/校验和安装更新来源迁移后，才删除原仓库及其 Releases。未完成迁移门禁时不得删除；具体门禁见 [仓库迁移清单](MIGRATION.md)。
+## 许可证
+
+[Apache License 2.0](LICENSE)。
