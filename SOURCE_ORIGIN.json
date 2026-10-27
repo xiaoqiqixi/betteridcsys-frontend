@@ -1,0 +1,475 @@
+{
+  "schema": 1,
+  "source_repository": "xiaoqiqixi/betteridcsys",
+  "source_commit": "fa4d2139ff5ecfc2802c0825e839134ca488d138",
+  "component": "betteridcsys-frontend",
+  "source_is_verified_committed_main": true,
+  "local_uncommitted_changes_included": false,
+  "files": {
+    "LICENSE": {
+      "upstream_path": "LICENSE",
+      "upstream_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "exported_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    "docs/CATALOG_TAXONOMY.md": {
+      "upstream_path": "vps-billing/docs/CATALOG_TAXONOMY.md",
+      "upstream_sha256": "70d40627485943ec4876f63b8d25eb7a9d54f0640e2aab2e23141266df9c5a34",
+      "exported_sha256": "deb82d84d9a8ddd1dce809088b3039983b2d12bb5e9706ea4fa51fdbdd6860ee",
+      "adapted_for_independent_repository": true
+    },
+    "docs/CONTRACT.md": {
+      "upstream_path": "vps-billing/docs/CONTRACT.md",
+      "upstream_sha256": "9e1e93d38a9855e93903d2fc18a96a21a2595c316f5c1a453c5a9e106946934c",
+      "exported_sha256": "87a7520143c2d9b708f520eef552f0523f9ddca7b93f53e54c593152a97e0ad3",
+      "adapted_for_independent_repository": true
+    },
+    "docs/FINANCIAL_MODEL.md": {
+      "upstream_path": "vps-billing/docs/FINANCIAL_MODEL.md",
+      "upstream_sha256": "e1bebbf5d142c737071610986d5a120eb87e8244a9b9a64d12fd86d618fa1a0e",
+      "exported_sha256": "0847f43dd3cdbbf74a426c6c71a9e9492e16e5236893332a91e34ec63544135b",
+      "adapted_for_independent_repository": true
+    },
+    "docs/PRODUCT_CONFIGURATION.md": {
+      "upstream_path": "vps-billing/docs/PRODUCT_CONFIGURATION.md",
+      "upstream_sha256": "17c8baf2af8fb0319cc297a351b508d363616bb7322ad4677a71d5b70aa8635e",
+      "exported_sha256": "e72c7ab10e6ecbccbe62da2dce8f1b635e7d175f1d8aec5e7d0bd5b4a043868e",
+      "adapted_for_independent_repository": true
+    },
+    "docs/SITE_SETTINGS.md": {
+      "upstream_path": "vps-billing/docs/SITE_SETTINGS.md",
+      "upstream_sha256": "d216a43a75335ffcab0e84771cf3c8231b9dd8ea679450231c7e10067382e27d",
+      "exported_sha256": "766015d5192a1d06477cb22aa32cafbd67bb75deb673d1f186e6cc8a65ace18a",
+      "adapted_for_independent_repository": true
+    },
+    "docs/UI_GUIDELINES.md": {
+      "upstream_path": "vps-billing/docs/UI_GUIDELINES.md",
+      "upstream_sha256": "6ae9949a1a173e901011670553c3b88839f71698b99d7bcf6869f7060052afaa",
+      "exported_sha256": "817ef43f1499ef7212dde41c4a7770f655ac7820cea3fd10a3ddd152a5b9ce1f",
+      "adapted_for_independent_repository": true
+    },
+    "README.md": {
+      "upstream_path": "vps-billing/frontend/README.md",
+      "upstream_sha256": "85e2a2c67332db6fbe2c77950bc29f08a989ecb0abfce53892c9184b1ac5e58c",
+      "exported_sha256": "80d40d1aeddc9a488667396adc4299bd0d1d011b884894a95c5992548ea109eb",
+      "adapted_for_independent_repository": true
+    },
+    "index.html": {
+      "upstream_path": "vps-billing/frontend/index.html",
+      "upstream_sha256": "c2be1e00612bcf073c8bb1d61653d10d2968bbe1a1a39d0e916c1634afa6e1fd",
+      "exported_sha256": "c2be1e00612bcf073c8bb1d61653d10d2968bbe1a1a39d0e916c1634afa6e1fd"
+    },
+    "package-lock.json": {
+      "upstream_path": "vps-billing/frontend/package-lock.json",
+      "upstream_sha256": "2ccba2f1a10406bdf4748e1ed31e463d5f5769ca7c211e14109488077fcc69cd",
+      "exported_sha256": "2ccba2f1a10406bdf4748e1ed31e463d5f5769ca7c211e14109488077fcc69cd"
+    },
+    "package.json": {
+      "upstream_path": "vps-billing/frontend/package.json",
+      "upstream_sha256": "fcb3c2d716689f43eda6e7d87bd9efba87ce6273d60cab1745e1bc28b9c0bd4a",
+      "exported_sha256": "fcb3c2d716689f43eda6e7d87bd9efba87ce6273d60cab1745e1bc28b9c0bd4a"
+    },
+    "public/favicon.svg": {
+      "upstream_path": "vps-billing/frontend/public/favicon.svg",
+      "upstream_sha256": "7d733db3d9c18daa63cdd084a7c273e6b94d1b84d39d20288aff78e61921b024",
+      "exported_sha256": "7d733db3d9c18daa63cdd084a7c273e6b94d1b84d39d20288aff78e61921b024"
+    },
+    "src/App.vue": {
+      "upstream_path": "vps-billing/frontend/src/App.vue",
+      "upstream_sha256": "17af84cf3e80f02ca0988088555c382f23a84767ff6cdb4d69f2f912a9523ff9",
+      "exported_sha256": "17af84cf3e80f02ca0988088555c382f23a84767ff6cdb4d69f2f912a9523ff9"
+    },
+    "src/completion.css": {
+      "upstream_path": "vps-billing/frontend/src/completion.css",
+      "upstream_sha256": "863316542e7fc707709826549575aed88801471eb0c0a5174e41bbdbbd7a6d08",
+      "exported_sha256": "863316542e7fc707709826549575aed88801471eb0c0a5174e41bbdbbd7a6d08"
+    },
+    "src/components/AccountPanel.vue": {
+      "upstream_path": "vps-billing/frontend/src/components/AccountPanel.vue",
+      "upstream_sha256": "62ffdd101207f750aeb08c5d9ff8c366757fb018e1a6a48556ae16c0d92423f9",
+      "exported_sha256": "62ffdd101207f750aeb08c5d9ff8c366757fb018e1a6a48556ae16c0d92423f9"
+    },
+    "src/components/CatalogTaxonomyManager.vue": {
+      "upstream_path": "vps-billing/frontend/src/components/CatalogTaxonomyManager.vue",
+      "upstream_sha256": "4624f253d857f8648cc3ff5edbc6f9ed4856da6672635670b790ab639832480b",
+      "exported_sha256": "4624f253d857f8648cc3ff5edbc6f9ed4856da6672635670b790ab639832480b"
+    },
+    "src/components/CurrencyRegistryPanel.vue": {
+      "upstream_path": "vps-billing/frontend/src/components/CurrencyRegistryPanel.vue",
+      "upstream_sha256": "af5f25e9f13679ed7e3a345b1293f0d297a1b56a55a942e8913181744439f3ec",
+      "exported_sha256": "af5f25e9f13679ed7e3a345b1293f0d297a1b56a55a942e8913181744439f3ec"
+    },
+    "src/components/EmailConfigPanel.vue": {
+      "upstream_path": "vps-billing/frontend/src/components/EmailConfigPanel.vue",
+      "upstream_sha256": "98ac5a41f1df78566a47c6d1a9fccc89d084ebc9fce0ccbe3d35982b709818a5",
+      "exported_sha256": "98ac5a41f1df78566a47c6d1a9fccc89d084ebc9fce0ccbe3d35982b709818a5"
+    },
+    "src/components/GeminiCurrencyEditor.vue": {
+      "upstream_path": "vps-billing/frontend/src/components/GeminiCurrencyEditor.vue",
+      "upstream_sha256": "075d0ebe739b39b9d03ac82da07f0bce49afd410fbb7b1e1db71a7740265b3e2",
+      "exported_sha256": "075d0ebe739b39b9d03ac82da07f0bce49afd410fbb7b1e1db71a7740265b3e2"
+    },
+    "src/components/GeminiEmailEditor.vue": {
+      "upstream_path": "vps-billing/frontend/src/components/GeminiEmailEditor.vue",
+      "upstream_sha256": "e36f4ca366514cdf3192a1cafc2a722a2dda6db0155e08c74ca757b4d1564893",
+      "exported_sha256": "e36f4ca366514cdf3192a1cafc2a722a2dda6db0155e08c74ca757b4d1564893"
+    },
+    "src/components/GeminiFinanceOverview.vue": {
+      "upstream_path": "vps-billing/frontend/src/components/GeminiFinanceOverview.vue",
+      "upstream_sha256": "60b77da9afd1a8d007a038affdde1a568ac8aee96e8260437b30a6be760e8b2d",
+      "exported_sha256": "60b77da9afd1a8d007a038affdde1a568ac8aee96e8260437b30a6be760e8b2d"
+    },
+    "src/components/GeminiHome.vue": {
+      "upstream_path": "vps-billing/frontend/src/components/GeminiHome.vue",
+      "upstream_sha256": "0e072ea6727289c15615974b3d66fad91c97cf11fde58cd80e55033098606051",
+      "exported_sha256": "0e072ea6727289c15615974b3d66fad91c97cf11fde58cd80e55033098606051"
+    },
+    "src/components/GeminiPlanCard.vue": {
+      "upstream_path": "vps-billing/frontend/src/components/GeminiPlanCard.vue",
+      "upstream_sha256": "cb2675b481bbd433f02af64ff2c3a9e49514e1856126f54aae961e2896b2fc9c",
+      "exported_sha256": "cb2675b481bbd433f02af64ff2c3a9e49514e1856126f54aae961e2896b2fc9c"
+    },
+    "src/components/LocaleCurrencyPanel.vue": {
+      "upstream_path": "vps-billing/frontend/src/components/LocaleCurrencyPanel.vue",
+      "upstream_sha256": "6c8225c88d5514d30271ff3ca83a94ce3c269a9a70c959335a18c40c96a8fad1",
+      "exported_sha256": "6c8225c88d5514d30271ff3ca83a94ce3c269a9a70c959335a18c40c96a8fad1"
+    },
+    "src/components/OverlayPanel.vue": {
+      "upstream_path": "vps-billing/frontend/src/components/OverlayPanel.vue",
+      "upstream_sha256": "f4729a2cc57db4e7c704b4d202b581757fd7f02f4064e7b05947274c3e6c16ad",
+      "exported_sha256": "f4729a2cc57db4e7c704b4d202b581757fd7f02f4064e7b05947274c3e6c16ad"
+    },
+    "src/components/ProductConfigurationPanel.vue": {
+      "upstream_path": "vps-billing/frontend/src/components/ProductConfigurationPanel.vue",
+      "upstream_sha256": "16cbf32384ee1eb83b187e5b423337fda5c43ef8f8bc1093afbd2d3ff3fe9c56",
+      "exported_sha256": "16cbf32384ee1eb83b187e5b423337fda5c43ef8f8bc1093afbd2d3ff3fe9c56"
+    },
+    "src/components/ProductSpecs.vue": {
+      "upstream_path": "vps-billing/frontend/src/components/ProductSpecs.vue",
+      "upstream_sha256": "c5c7e7acf8a406e17bd29f64e8c602297de9a7eedfef4029e8688ab3f792f96c",
+      "exported_sha256": "c5c7e7acf8a406e17bd29f64e8c602297de9a7eedfef4029e8688ab3f792f96c"
+    },
+    "src/components/SignInPanel.vue": {
+      "upstream_path": "vps-billing/frontend/src/components/SignInPanel.vue",
+      "upstream_sha256": "12df04d7f35694476816a15b8429668aea492ef1083cf52e4f1d67e2fbc599dd",
+      "exported_sha256": "12df04d7f35694476816a15b8429668aea492ef1083cf52e4f1d67e2fbc599dd"
+    },
+    "src/components/UiLoading.vue": {
+      "upstream_path": "vps-billing/frontend/src/components/UiLoading.vue",
+      "upstream_sha256": "901fd45f694ca17c541918cd7fb60a18956b8b510f9f8c43c18b755692613cd7",
+      "exported_sha256": "901fd45f694ca17c541918cd7fb60a18956b8b510f9f8c43c18b755692613cd7"
+    },
+    "src/components/UiSelect.vue": {
+      "upstream_path": "vps-billing/frontend/src/components/UiSelect.vue",
+      "upstream_sha256": "87fb145fa74c0eb13a95918b245c01a6176d9c520e914acae36f6ce884291ad9",
+      "exported_sha256": "87fb145fa74c0eb13a95918b245c01a6176d9c520e914acae36f6ce884291ad9"
+    },
+    "src/components/UiSpinner.vue": {
+      "upstream_path": "vps-billing/frontend/src/components/UiSpinner.vue",
+      "upstream_sha256": "d7686f7f55ebf8ac0b21b86fef0a6fde684a379903ac561655d62395c2a26c0b",
+      "exported_sha256": "d7686f7f55ebf8ac0b21b86fef0a6fde684a379903ac561655d62395c2a26c0b"
+    },
+    "src/components/UpdateManager.vue": {
+      "upstream_path": "vps-billing/frontend/src/components/UpdateManager.vue",
+      "upstream_sha256": "5ac71343b81972a38c426867c919df9772adeb432ef24db68ed4b4972c47095d",
+      "exported_sha256": "5ac71343b81972a38c426867c919df9772adeb432ef24db68ed4b4972c47095d"
+    },
+    "src/composables/useWorkspace.ts": {
+      "upstream_path": "vps-billing/frontend/src/composables/useWorkspace.ts",
+      "upstream_sha256": "610d6e9767f0a243e47c536671f82e81483f5a439cd159c159688933e4fce68d",
+      "exported_sha256": "610d6e9767f0a243e47c536671f82e81483f5a439cd159c159688933e4fce68d"
+    },
+    "src/controls.css": {
+      "upstream_path": "vps-billing/frontend/src/controls.css",
+      "upstream_sha256": "0b6ae13702ea0e336cb63fb771de41180cd6747e6930c337f6b3b68dea98e066",
+      "exported_sha256": "0b6ae13702ea0e336cb63fb771de41180cd6747e6930c337f6b3b68dea98e066"
+    },
+    "src/main.ts": {
+      "upstream_path": "vps-billing/frontend/src/main.ts",
+      "upstream_sha256": "a7842c9769cc6ac4452aaf61b0794824c8f83cc641a31f8a554886fc6d353950",
+      "exported_sha256": "a7842c9769cc6ac4452aaf61b0794824c8f83cc641a31f8a554886fc6d353950"
+    },
+    "src/pages/AdminCatalogPage.vue": {
+      "upstream_path": "vps-billing/frontend/src/pages/AdminCatalogPage.vue",
+      "upstream_sha256": "8581c313b7c6a04a51480c7ca4f432d9fccd4a20cef4884dfede144e80407914",
+      "exported_sha256": "8581c313b7c6a04a51480c7ca4f432d9fccd4a20cef4884dfede144e80407914"
+    },
+    "src/pages/CatalogPage.vue": {
+      "upstream_path": "vps-billing/frontend/src/pages/CatalogPage.vue",
+      "upstream_sha256": "163948e0a177e4722171a4903b23814df01e02040a5048d96a3355b789ee68d7",
+      "exported_sha256": "163948e0a177e4722171a4903b23814df01e02040a5048d96a3355b789ee68d7"
+    },
+    "src/pages/HomePage.vue": {
+      "upstream_path": "vps-billing/frontend/src/pages/HomePage.vue",
+      "upstream_sha256": "5ca4ce439b42d1b6dcaed2d1b2de2cd34da22fa5cfee3407982b8e3a5763eb1a",
+      "exported_sha256": "5ca4ce439b42d1b6dcaed2d1b2de2cd34da22fa5cfee3407982b8e3a5763eb1a"
+    },
+    "src/pages/OperationsPage.vue": {
+      "upstream_path": "vps-billing/frontend/src/pages/OperationsPage.vue",
+      "upstream_sha256": "19d5f5780f2a5dcb114d42761cc1618fd041df2ceef6eb8a2e84df71110c61ca",
+      "exported_sha256": "19d5f5780f2a5dcb114d42761cc1618fd041df2ceef6eb8a2e84df71110c61ca"
+    },
+    "src/pages/SettingsPage.vue": {
+      "upstream_path": "vps-billing/frontend/src/pages/SettingsPage.vue",
+      "upstream_sha256": "3e0724b3d120216549e6921034170d34357d471f0fcf4fe6a6f80df4464a529e",
+      "exported_sha256": "3e0724b3d120216549e6921034170d34357d471f0fcf4fe6a6f80df4464a529e"
+    },
+    "src/router.ts": {
+      "upstream_path": "vps-billing/frontend/src/router.ts",
+      "upstream_sha256": "36b94e116e7085eda67a5f79601f5466a230fab72045c5638ab844a3a2c7340b",
+      "exported_sha256": "36b94e116e7085eda67a5f79601f5466a230fab72045c5638ab844a3a2c7340b"
+    },
+    "src/services/api.ts": {
+      "upstream_path": "vps-billing/frontend/src/services/api.ts",
+      "upstream_sha256": "ec44a1343b849f52aa262eff5c3dba79a0bc262177fc90b780262c3af3ca0d82",
+      "exported_sha256": "ec44a1343b849f52aa262eff5c3dba79a0bc262177fc90b780262c3af3ca0d82"
+    },
+    "src/services/audit-presentation.ts": {
+      "upstream_path": "vps-billing/frontend/src/services/audit-presentation.ts",
+      "upstream_sha256": "5cafbd2ab0cb84f5afc5f435f0eea8944e75a26b5b7ef8fb55417155bd3cba46",
+      "exported_sha256": "5cafbd2ab0cb84f5afc5f435f0eea8944e75a26b5b7ef8fb55417155bd3cba46"
+    },
+    "src/services/catalog-taxonomy.ts": {
+      "upstream_path": "vps-billing/frontend/src/services/catalog-taxonomy.ts",
+      "upstream_sha256": "3f372271b5ec16478c2ca2e48745d38230a0d28b6307e6ac23b213b927034def",
+      "exported_sha256": "3f372271b5ec16478c2ca2e48745d38230a0d28b6307e6ac23b213b927034def"
+    },
+    "src/services/demo.ts": {
+      "upstream_path": "vps-billing/frontend/src/services/demo.ts",
+      "upstream_sha256": "0575c564f16bf90083f6f015b03ba5443238e203314062a762b778c56239cf87",
+      "exported_sha256": "0575c564f16bf90083f6f015b03ba5443238e203314062a762b778c56239cf87"
+    },
+    "src/services/preferences.ts": {
+      "upstream_path": "vps-billing/frontend/src/services/preferences.ts",
+      "upstream_sha256": "5c7c27679a6ff26d98291a17ccdcc33a49e469dbd1c28c9f601159e6d02890c9",
+      "exported_sha256": "5c7c27679a6ff26d98291a17ccdcc33a49e469dbd1c28c9f601159e6d02890c9"
+    },
+    "src/services/product-configuration.ts": {
+      "upstream_path": "vps-billing/frontend/src/services/product-configuration.ts",
+      "upstream_sha256": "d254ec2b074911866534382d460e49440cc57e7350586984614cffebba4314b9",
+      "exported_sha256": "d254ec2b074911866534382d460e49440cc57e7350586984614cffebba4314b9"
+    },
+    "src/services/settings-input.ts": {
+      "upstream_path": "vps-billing/frontend/src/services/settings-input.ts",
+      "upstream_sha256": "9793be234bc2b15874d415a9871e31909d3c90cd2cb562d79302e5a7a7b4cdc8",
+      "exported_sha256": "9793be234bc2b15874d415a9871e31909d3c90cd2cb562d79302e5a7a7b4cdc8"
+    },
+    "src/services/update-contract.ts": {
+      "upstream_path": "vps-billing/frontend/src/services/update-contract.ts",
+      "upstream_sha256": "88bb82fc0542c190a525b8a71eccfefa35b34e5de6d6130eaaabc2bcdd2e0410",
+      "exported_sha256": "88bb82fc0542c190a525b8a71eccfefa35b34e5de6d6130eaaabc2bcdd2e0410"
+    },
+    "src/shell.css": {
+      "upstream_path": "vps-billing/frontend/src/shell.css",
+      "upstream_sha256": "b953288a2cc175c03377083a063708d8261b4416e04d9493ee00376f7454720f",
+      "exported_sha256": "b953288a2cc175c03377083a063708d8261b4416e04d9493ee00376f7454720f"
+    },
+    "src/style.css": {
+      "upstream_path": "vps-billing/frontend/src/style.css",
+      "upstream_sha256": "ceccea54d757eaaaf1fec1a43ec78de27e1bcdf44f824541ed5b7c4b93de8a40",
+      "exported_sha256": "ceccea54d757eaaaf1fec1a43ec78de27e1bcdf44f824541ed5b7c4b93de8a40"
+    },
+    "src/types/idc.ts": {
+      "upstream_path": "vps-billing/frontend/src/types/idc.ts",
+      "upstream_sha256": "67cc974888b44dbb4d0e0e11171579e397a21c0066b488598d3aaabb476fa31c",
+      "exported_sha256": "67cc974888b44dbb4d0e0e11171579e397a21c0066b488598d3aaabb476fa31c"
+    },
+    "src/vite-env.d.ts": {
+      "upstream_path": "vps-billing/frontend/src/vite-env.d.ts",
+      "upstream_sha256": "65996936fbb042915f7b74a200fcdde7e410f32a669b1ab9597cfaa4b0faddb5",
+      "exported_sha256": "65996936fbb042915f7b74a200fcdde7e410f32a669b1ab9597cfaa4b0faddb5"
+    },
+    "tests/api-presentation.test.ts": {
+      "upstream_path": "vps-billing/frontend/tests/api-presentation.test.ts",
+      "upstream_sha256": "6030404a13c70f63a21752aec086632187ea9af5d8f78a32db07b7c7189ebfe8",
+      "exported_sha256": "6030404a13c70f63a21752aec086632187ea9af5d8f78a32db07b7c7189ebfe8"
+    },
+    "tests/audit-presentation.test.ts": {
+      "upstream_path": "vps-billing/frontend/tests/audit-presentation.test.ts",
+      "upstream_sha256": "19e263f6e4a108fae10d419a06f90ab2336dc230c293151b4bc72bea73181917",
+      "exported_sha256": "19e263f6e4a108fae10d419a06f90ab2336dc230c293151b4bc72bea73181917"
+    },
+    "tests/authentication.test.ts": {
+      "upstream_path": "vps-billing/frontend/tests/authentication.test.ts",
+      "upstream_sha256": "1589e8343ee63a06a18ef9a837ecfb4fcf7a0f814560cc2cfca064320ba55463",
+      "exported_sha256": "1589e8343ee63a06a18ef9a837ecfb4fcf7a0f814560cc2cfca064320ba55463"
+    },
+    "tests/browser-fault.test.ts": {
+      "upstream_path": "vps-billing/frontend/tests/browser-fault.test.ts",
+      "upstream_sha256": "e68c26892877949d9ab7ec66a0c8e74258cf58c21b1b34b05373a8ebd67d1226",
+      "exported_sha256": "e68c26892877949d9ab7ec66a0c8e74258cf58c21b1b34b05373a8ebd67d1226"
+    },
+    "tests/browser-mysql.mjs": {
+      "upstream_path": "vps-billing/frontend/tests/browser-mysql.mjs",
+      "upstream_sha256": "8dc9ffbb336f276f0990199aad5ab9b09bb7fa1e50dcbe87029e5abcd0e7eec3",
+      "exported_sha256": "8dc9ffbb336f276f0990199aad5ab9b09bb7fa1e50dcbe87029e5abcd0e7eec3"
+    },
+    "tests/catalog-pages.test.ts": {
+      "upstream_path": "vps-billing/frontend/tests/catalog-pages.test.ts",
+      "upstream_sha256": "3995044a479b2cc389113d2f5965f94f4934f05e03d2c991351f8c8646718552",
+      "exported_sha256": "3995044a479b2cc389113d2f5965f94f4934f05e03d2c991351f8c8646718552"
+    },
+    "tests/catalog-taxonomy-admin.test.ts": {
+      "upstream_path": "vps-billing/frontend/tests/catalog-taxonomy-admin.test.ts",
+      "upstream_sha256": "f6b76e98b5a6b3a6b9e2bc194635114fb95901015dca1a1091ba6d232a130932",
+      "exported_sha256": "f6b76e98b5a6b3a6b9e2bc194635114fb95901015dca1a1091ba6d232a130932"
+    },
+    "tests/catalog-taxonomy-customer.test.ts": {
+      "upstream_path": "vps-billing/frontend/tests/catalog-taxonomy-customer.test.ts",
+      "upstream_sha256": "f053ae95f10dcd1959a5dd1fd05b13c5f5ae086226d2d1efce242650e2395901",
+      "exported_sha256": "f053ae95f10dcd1959a5dd1fd05b13c5f5ae086226d2d1efce242650e2395901"
+    },
+    "tests/configuration-write-contract.mjs": {
+      "upstream_path": "vps-billing/frontend/tests/configuration-write-contract.mjs",
+      "upstream_sha256": "67b92753f962c4c524d87682f9c6ecf90055aad0255d091c69da7dda1a8567d9",
+      "exported_sha256": "67b92753f962c4c524d87682f9c6ecf90055aad0255d091c69da7dda1a8567d9"
+    },
+    "tests/data-layer.mjs": {
+      "upstream_path": "vps-billing/frontend/tests/data-layer.mjs",
+      "upstream_sha256": "cf43826b761d65ef6f3f9d8dc2f435a413a8997dcbc5bfba61e9dbb3e043c9f9",
+      "exported_sha256": "cf43826b761d65ef6f3f9d8dc2f435a413a8997dcbc5bfba61e9dbb3e043c9f9"
+    },
+    "tests/e2e-support.mjs": {
+      "upstream_path": "vps-billing/frontend/tests/e2e-support.mjs",
+      "upstream_sha256": "c35c194786f00925ef2791ca58d9a72065732f647570e1da6e3352c08dd924aa",
+      "exported_sha256": "9ba8fe399104d4c26f6162bba5852f8805a9296ed1b694cc7f89f9891d013ce6",
+      "adapted_for_independent_repository": true
+    },
+    "tests/e2e.mjs": {
+      "upstream_path": "vps-billing/frontend/tests/e2e.mjs",
+      "upstream_sha256": "87f10a6d1ad2ae0a7acce634a04c5364d419fda6c0f1f6aac2e74f11c02b8fb3",
+      "exported_sha256": "87f10a6d1ad2ae0a7acce634a04c5364d419fda6c0f1f6aac2e74f11c02b8fb3"
+    },
+    "tests/gemini-currency-editor.test.ts": {
+      "upstream_path": "vps-billing/frontend/tests/gemini-currency-editor.test.ts",
+      "upstream_sha256": "8e38dd7a46c61f920f82d4d8f59430f5b4d6ff6fa6ff228aa1469b8a449ac4dc",
+      "exported_sha256": "8e38dd7a46c61f920f82d4d8f59430f5b4d6ff6fa6ff228aa1469b8a449ac4dc"
+    },
+    "tests/gemini-email-editor.test.ts": {
+      "upstream_path": "vps-billing/frontend/tests/gemini-email-editor.test.ts",
+      "upstream_sha256": "021b43e61bed5c4c859baef5117187bc54df1351f9a5b63ad26da78d887afb0d",
+      "exported_sha256": "021b43e61bed5c4c859baef5117187bc54df1351f9a5b63ad26da78d887afb0d"
+    },
+    "tests/gemini-finance-overview.test.ts": {
+      "upstream_path": "vps-billing/frontend/tests/gemini-finance-overview.test.ts",
+      "upstream_sha256": "28b8b508ce0df8e6adbbea0bca902736548242d242dfda7eb8cfd03645678bd2",
+      "exported_sha256": "28b8b508ce0df8e6adbbea0bca902736548242d242dfda7eb8cfd03645678bd2"
+    },
+    "tests/gemini-home.test.ts": {
+      "upstream_path": "vps-billing/frontend/tests/gemini-home.test.ts",
+      "upstream_sha256": "c9cb467fc7135ea4e8aa16a225a86062f5f59fc956189362748aeafb0617fa7a",
+      "exported_sha256": "c9cb467fc7135ea4e8aa16a225a86062f5f59fc956189362748aeafb0617fa7a"
+    },
+    "tests/gemini-plan-card.test.ts": {
+      "upstream_path": "vps-billing/frontend/tests/gemini-plan-card.test.ts",
+      "upstream_sha256": "922dd8c5df3f8dfb26c0a1017abd774e6777b8608a334e091b74b77d720dbd22",
+      "exported_sha256": "922dd8c5df3f8dfb26c0a1017abd774e6777b8608a334e091b74b77d720dbd22"
+    },
+    "tests/light-theme-contrast.test.ts": {
+      "upstream_path": "vps-billing/frontend/tests/light-theme-contrast.test.ts",
+      "upstream_sha256": "83413e8c60f407657d689ac5dcdd5d044108f2fba50e89bc110f5cae055577c4",
+      "exported_sha256": "83413e8c60f407657d689ac5dcdd5d044108f2fba50e89bc110f5cae055577c4"
+    },
+    "tests/locale-currency-panel.test.ts": {
+      "upstream_path": "vps-billing/frontend/tests/locale-currency-panel.test.ts",
+      "upstream_sha256": "f847bb599f97bda6564ee1fc6d82619c2456d04fd0b0592d4fb78a1f5313713d",
+      "exported_sha256": "f847bb599f97bda6564ee1fc6d82619c2456d04fd0b0592d4fb78a1f5313713d"
+    },
+    "tests/operations-pages.test.ts": {
+      "upstream_path": "vps-billing/frontend/tests/operations-pages.test.ts",
+      "upstream_sha256": "cf89c204e2678fdf46b2c065da633c685f399ff6fb94156b5fc3c88f8505b1e4",
+      "exported_sha256": "cf89c204e2678fdf46b2c065da633c685f399ff6fb94156b5fc3c88f8505b1e4"
+    },
+    "tests/preferences.test.ts": {
+      "upstream_path": "vps-billing/frontend/tests/preferences.test.ts",
+      "upstream_sha256": "7978c010fa25c355214df044a3af19268a158017ec8da22484c90fe15aa4213b",
+      "exported_sha256": "7978c010fa25c355214df044a3af19268a158017ec8da22484c90fe15aa4213b"
+    },
+    "tests/price-editor-layout.test.ts": {
+      "upstream_path": "vps-billing/frontend/tests/price-editor-layout.test.ts",
+      "upstream_sha256": "1f57bdbec240c471c96bd569a7817b8c596212f825a395a44569894ba56668e6",
+      "exported_sha256": "1f57bdbec240c471c96bd569a7817b8c596212f825a395a44569894ba56668e6"
+    },
+    "tests/product-configuration-boundaries.mjs": {
+      "upstream_path": "vps-billing/frontend/tests/product-configuration-boundaries.mjs",
+      "upstream_sha256": "53fef487442a377d4f65af2cdbd574368413e53d40153bd005de8ac993b8ec58",
+      "exported_sha256": "53fef487442a377d4f65af2cdbd574368413e53d40153bd005de8ac993b8ec58"
+    },
+    "tests/product-configuration.test.ts": {
+      "upstream_path": "vps-billing/frontend/tests/product-configuration.test.ts",
+      "upstream_sha256": "4b751e0a3aaeb5d81c2fa3838db19c1e5452f560c4b91521aa8f2a7e2393d549",
+      "exported_sha256": "4b751e0a3aaeb5d81c2fa3838db19c1e5452f560c4b91521aa8f2a7e2393d549"
+    },
+    "tests/real-api-contract.mjs": {
+      "upstream_path": "vps-billing/frontend/tests/real-api-contract.mjs",
+      "upstream_sha256": "e9ec51957d324ab94b839738da90d9c64152c0bd6362103573e126cff7528cb8",
+      "exported_sha256": "e9ec51957d324ab94b839738da90d9c64152c0bd6362103573e126cff7528cb8"
+    },
+    "tests/responsive-boundaries.mjs": {
+      "upstream_path": "vps-billing/frontend/tests/responsive-boundaries.mjs",
+      "upstream_sha256": "733fe37e43a5c2d542c0ba00fddfa2ba6d3a22cfa0ac9465ffb1b4a88298d819",
+      "exported_sha256": "733fe37e43a5c2d542c0ba00fddfa2ba6d3a22cfa0ac9465ffb1b4a88298d819"
+    },
+    "tests/router-scroll.test.ts": {
+      "upstream_path": "vps-billing/frontend/tests/router-scroll.test.ts",
+      "upstream_sha256": "fb6628e9bbad99aecca4d7201d276c27c7b6ad742399b7cfe67be7f94b4e7011",
+      "exported_sha256": "fb6628e9bbad99aecca4d7201d276c27c7b6ad742399b7cfe67be7f94b4e7011"
+    },
+    "tests/settings-fixtures.ts": {
+      "upstream_path": "vps-billing/frontend/tests/settings-fixtures.ts",
+      "upstream_sha256": "225c943ccf907a10ba9d51e665e9edf65ae876d821596b7c3f2545412cd18f8a",
+      "exported_sha256": "225c943ccf907a10ba9d51e665e9edf65ae876d821596b7c3f2545412cd18f8a"
+    },
+    "tests/settings-page.test.ts": {
+      "upstream_path": "vps-billing/frontend/tests/settings-page.test.ts",
+      "upstream_sha256": "94a8de768895222943a0832d3524cc8bffda6c411bb64c1482c9c51f138b2f36",
+      "exported_sha256": "94a8de768895222943a0832d3524cc8bffda6c411bb64c1482c9c51f138b2f36"
+    },
+    "tests/settings-real-contract.mjs": {
+      "upstream_path": "vps-billing/frontend/tests/settings-real-contract.mjs",
+      "upstream_sha256": "12b26dd7b3ea8f109ecabf6a9b291a190d1b8d2145d85d2585ea596aad357a59",
+      "exported_sha256": "12b26dd7b3ea8f109ecabf6a9b291a190d1b8d2145d85d2585ea596aad357a59"
+    },
+    "tests/settings-safety.test.ts": {
+      "upstream_path": "vps-billing/frontend/tests/settings-safety.test.ts",
+      "upstream_sha256": "8902b18489e1cfda25bf04c7e2fb80277d2454493bbfce3a325d06cfb32c663c",
+      "exported_sha256": "8902b18489e1cfda25bf04c7e2fb80277d2454493bbfce3a325d06cfb32c663c"
+    },
+    "tests/theme-color-roles.test.ts": {
+      "upstream_path": "vps-billing/frontend/tests/theme-color-roles.test.ts",
+      "upstream_sha256": "2a2089d75e47ae5f23dd340fc90463945ebe5449fb7fd2e747bd6a51318ef9b7",
+      "exported_sha256": "2a2089d75e47ae5f23dd340fc90463945ebe5449fb7fd2e747bd6a51318ef9b7"
+    },
+    "tests/theme-contrast.mjs": {
+      "upstream_path": "vps-billing/frontend/tests/theme-contrast.mjs",
+      "upstream_sha256": "b108df1aa8f5be63e69c4f0c37a34201f24eb88dea89767bef3d9c27cfd46422",
+      "exported_sha256": "b108df1aa8f5be63e69c4f0c37a34201f24eb88dea89767bef3d9c27cfd46422"
+    },
+    "tests/ui-controls.test.ts": {
+      "upstream_path": "vps-billing/frontend/tests/ui-controls.test.ts",
+      "upstream_sha256": "c3d08c33e96eeab0a0c27d85212397ffaede9cf2d6bb8bb808f59e10147e891c",
+      "exported_sha256": "c3d08c33e96eeab0a0c27d85212397ffaede9cf2d6bb8bb808f59e10147e891c"
+    },
+    "tests/ui-copy-boundaries.mjs": {
+      "upstream_path": "vps-billing/frontend/tests/ui-copy-boundaries.mjs",
+      "upstream_sha256": "0ec3c664adb527ba5bb6825b1b6a3d9b5b6cb8a07978607769998e675215b0e4",
+      "exported_sha256": "0ec3c664adb527ba5bb6825b1b6a3d9b5b6cb8a07978607769998e675215b0e4"
+    },
+    "tests/update-manager.test.ts": {
+      "upstream_path": "vps-billing/frontend/tests/update-manager.test.ts",
+      "upstream_sha256": "20beb400ef915bff27821ebdda47dd16425717be70e2f0db957b9d19b478d80f",
+      "exported_sha256": "20beb400ef915bff27821ebdda47dd16425717be70e2f0db957b9d19b478d80f"
+    },
+    "tsconfig.json": {
+      "upstream_path": "vps-billing/frontend/tsconfig.json",
+      "upstream_sha256": "108d3b0a4c37d5104d2feaa1e2533782b958c5e69a16d928c23a7108d671c7da",
+      "exported_sha256": "108d3b0a4c37d5104d2feaa1e2533782b958c5e69a16d928c23a7108d671c7da"
+    },
+    "vite.config.ts": {
+      "upstream_path": "vps-billing/frontend/vite.config.ts",
+      "upstream_sha256": "19a1490513687cfa8866f86e3d8d43cb7c218413aaa4b5cb790cf905f813342b",
+      "exported_sha256": "19a1490513687cfa8866f86e3d8d43cb7c218413aaa4b5cb790cf905f813342b"
+    }
+  },
+  "initial_import_only": true,
+  "not_release_attestation": true
+}
