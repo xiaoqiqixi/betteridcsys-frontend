@@ -39,4 +39,6 @@ python3 scripts/frontend_bundle.py inspect \
 
 `python3 scripts/test_frontend_bundle.py` 通过公开 CLI 检查真实包往返、字节确定性、旧输出保护、精确 Core/提交、错误来源/类型/重复字段、包篡改、穿越/链接/重复 tar 成员、权限、缺失文件和资源边界。
 
-`Finance frontend checks` 在实际 Vite build 后执行测试及实际静态包构建/检查。它尚不发布 Release，也不代替后端组合、HTTPS 浏览器或升级演练。后台内置升级使用[整体设计](https://github.com/xiaoqiqixi/betteridcsys-backend/blob/main/docs/development/BUILTIN_UPGRADES.md)中的后续独立来源验证，不直接信任这个 CLI 的输出。
+`Finance frontend checks` 在实际 Vite build 后执行测试及实际静态包构建/检查，并保存 `finance-frontend-SOURCE_SHA-RUN_ATTEMPT` 候选 artifact 七天，禁止覆盖。候选用于后端精确配对验收；消费方必须核对固定仓库、成功运行/尝试、job 和 artifact ID/摘要，不能按名称拿“最新”。它尚不发布 Release，也不代替后端组合、HTTPS 浏览器或升级演练。用户安装器不从 Actions 临时 artifact 下载。
+
+后台内置升级使用[整体设计](https://github.com/xiaoqiqixi/betteridcsys-backend/blob/main/docs/development/BUILTIN_UPGRADES.md)中的后续独立来源验证，不直接信任这个 CLI 的输出。
