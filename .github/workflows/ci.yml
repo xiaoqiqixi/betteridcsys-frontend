@@ -39,6 +39,7 @@ jobs:
           PYTHONDONTWRITEBYTECODE: '1'
         run: |
           python3 scripts/test_frontend_bundle.py
+          python3 scripts/test_release_source.py
           package="$RUNNER_TEMP/finance-frontend-package-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
           python3 scripts/frontend_bundle.py build \
             --source-root "$GITHUB_WORKSPACE" --output "$package" \

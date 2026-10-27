@@ -42,3 +42,13 @@ python3 scripts/frontend_bundle.py inspect \
 `Finance frontend checks` 在实际 Vite build 后执行测试及实际静态包构建/检查，并保存 `finance-frontend-SOURCE_SHA-RUN_ATTEMPT` 候选 artifact 七天，禁止覆盖。候选用于后端精确配对验收；消费方必须核对固定仓库、成功运行/尝试、job 和 artifact ID/摘要，不能按名称拿“最新”。它尚不发布 Release，也不代替后端组合、HTTPS 浏览器或升级演练。用户安装器不从 Actions 临时 artifact 下载。
 
 后台内置升级使用[整体设计](https://github.com/xiaoqiqixi/betteridcsys-backend/blob/main/docs/development/BUILTIN_UPGRADES.md)中的后续独立来源验证，不直接信任这个 CLI 的输出。
+
+## 发布前的实际 CI 来源门禁
+
+`scripts/release_source.py fetch` 仅为后续独立发布器收集固定官方仓库的候选：必须指定完整 source SHA 和 Core 配对版本；核对公开仓库/所有者 ID、当前 main、指定 ci.yml、最新 push 运行与当前 attempt、唯一成功 frontend job，以及类型/测试/构建/干净工作区/依赖扫描/包检查步骤。最新一次失败或运行中不能回退使用旧绿色结果。
+
+门禁从固定 GitHub API 获取该次候选，仅允许精确名称的 FRONTEND.json 和静态归档；检查实际 ZIP 大小/摘要，再执行原内容检验器。网络请求拒绝环境代理、凭据重定向、任意仓库/URL；下载完成后复查 main、运行和 artifact 未改变。超限、分页不完整、过期或重复 artifact 拒绝，不按名称取“最新文件”。输出仅写全新目录，不执行候选代码。
+
+`CI-SOURCE.json` 记录实际观察与两份文件摘要；`live_api_observed=true` 不代表密码学认证，`publisher_signature_verified=false`、`installed=false` 始终明确保留。离线 `inspect` 只验证保存的观察数据与 ZIP 的一致性，输出 `live_api_observed=false`；它不能替代线上门禁，也不能用来给包签名或安装。
+
+9项公开 CLI 测试覆盖合法候选、跳过安全步骤、错仓库/主分支/fork/轮次、新失败运行、分页截断/重复候选、坏内容/错Core、路径/链接、旧输出保护和伪造认证字段。2026-10-27已用真实固定API复验aa86bf06与CI40481526674的artifact12723113485，实际大小208427及ZIP SHA256 `2dd6e3f0f1b64b9469d2b06dc377a316ad2d6f711895d29ab0a5633cebaea16a`，两份内容与独立CI原字节一致。签名、正式Release与安装消费端仍未完成，不据此宣称前端已正式首发。
