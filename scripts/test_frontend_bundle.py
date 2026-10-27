@@ -207,6 +207,16 @@ class FrontendBundleCLI(unittest.TestCase):
         manifest_path.write_text(json.dumps(manifest))
         self.rejected(self.inspect(out), 'expanded archive exceeds limit')
 
+    def test_oversized_dependency_inventory_rejected_before_collection(self):
+        path = self.repo / 'package-lock.json'; lock = json.loads(path.read_text())
+        for index in range(4096):
+            lock['packages']['node_modules/dev-' + str(index)] = {'dev': True, 'version': '1.0.0'}
+        path.write_text(json.dumps(lock))
+        result = self.cli('build', '--source-root', self.repo, '--output', self.root / 'too-many',
+                          '--source-sha', SHA, '--source-date-epoch', '1793059200')
+        self.rejected(result, 'dependency record limit exceeded')
+        self.assertFalse((self.root / 'too-many').exists())
+
 
 if __name__ == '__main__':
     unittest.main()

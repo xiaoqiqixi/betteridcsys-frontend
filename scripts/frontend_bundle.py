@@ -25,6 +25,7 @@ MAX_ARCHIVE = 32 * 1024 * 1024
 MAX_RAW = 64 * 1024 * 1024
 MAX_MANIFEST = 512 * 1024
 MAX_FILES = 2048
+MAX_PACKAGE_RECORDS = 4096
 VERSION = r'(?:0|[1-9][0-9]{0,5})(?:\.(?:0|[1-9][0-9]{0,5})){2}'
 SHA = r'[0-9a-f]{40}'
 DIGEST = r'[0-9a-f]{64}'
@@ -97,6 +98,7 @@ def metadata(files):
     require(matches(VERSION, version), 'expected a stable frontend version')
     require(lock.get('version') == version and lock.get('lockfileVersion') == 3 and
             type(lock.get('lockfileVersion')) is int and isinstance(lock.get('packages'), dict), 'lockfile version mismatch')
+    require(len(lock['packages']) <= MAX_PACKAGE_RECORDS, 'dependency record limit exceeded')
     main = lock['packages'].get('')
     require(isinstance(main, dict) and main.get('version') == version and main.get('name') == package.get('name') == lock.get('name'), 'lockfile root mismatch')
     require(set(compatibility) == {'schema', 'core_version', 'api_contract', 'backend_repository', 'source_commit', 'defaults'} and
@@ -157,6 +159,8 @@ def collect(root):
             target = 'licenses/' + location.removeprefix('node_modules/') + '/' + path.name
             require(valid_path(target), 'unsafe notice path')
             files[target] = regular(path)
+            require(len(files) <= MAX_FILES and sum(map(len, files.values())) <= MAX_RAW,
+                    'dependency notices exceed bundle limits')
             notices.append(target)
         dependencies.append({'name': package['name'], 'version': package['version'],
                              'license': package.get('license', 'not-declared'),
