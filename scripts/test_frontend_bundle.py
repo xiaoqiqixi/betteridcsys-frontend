@@ -134,21 +134,79 @@ class FrontendBundleCLI(unittest.TestCase):
         self.rejected(result, 'lockfile version mismatch')
         self.assertFalse((self.root / 'bad-lock').exists())
 
+    def test_absent_optional_platform_dependencies_are_not_collected(self):
+        path = self.repo / 'package-lock.json'; lock = json.loads(path.read_text())
+        lock['packages']['node_modules/@synthetic/other-platform'] = {
+            'version': '1.2.3', 'optional': True, 'os': ['other-platform'], 'cpu': ['other-cpu'],
+        }
+        path.write_text(json.dumps(lock))
+        out = self.build()
+        result = self.inspect(out)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        with tarfile.open(out / 'aster-finance-frontend-0.5.10.tar.gz') as archive:
+            self.assertEqual(json.load(archive.extractfile('DEPENDENCIES.json'))['packages'], [])
+            self.assertEqual(json.load(archive.extractfile('manifests/package-lock.json')), lock)
+
+    def test_missing_required_dependencies_cannot_be_treated_as_optional(self):
+        path = self.repo / 'package-lock.json'; lock = json.loads(path.read_text())
+        for index, flags in enumerate(({}, {'optional': False}, {'optional': 'true'}, {'devOptional': True})):
+            with self.subTest(flags=flags):
+                lock['packages']['node_modules/synthetic-lib'] = {'version': '1.2.3', **flags}
+                path.write_text(json.dumps(lock))
+                output = self.root / ('missing-' + str(index))
+                result = self.cli('build', '--source-root', self.repo, '--output', output,
+                                  '--source-sha', SHA, '--source-date-epoch', '1793059200')
+                self.rejected(result, '[Errno 2]')
+                self.assertFalse(output.exists())
+
+    def test_incomplete_optional_dependency_is_rejected(self):
+        path = self.repo / 'package-lock.json'; lock = json.loads(path.read_text())
+        lock['packages']['node_modules/synthetic-lib'] = {'version': '1.2.3', 'optional': True}
+        path.write_text(json.dumps(lock))
+        (self.repo / 'node_modules/synthetic-lib').mkdir(parents=True)
+        output = self.root / 'incomplete'
+        result = self.cli('build', '--source-root', self.repo, '--output', output,
+                          '--source-sha', SHA, '--source-date-epoch', '1793059200')
+        self.rejected(result, '[Errno 2]')
+        self.assertFalse(output.exists())
+
+    def test_absent_optional_dependency_does_not_hide_dangling_symlinks(self):
+        path = self.repo / 'package-lock.json'; lock = json.loads(path.read_text())
+        location = 'node_modules/@synthetic/optional-lib'
+        lock['packages'][location] = {'version': '1.2.3', 'optional': True}
+        path.write_text(json.dumps(lock))
+        dependency = self.repo / location
+        for kind in ('parent', 'package'):
+            with self.subTest(kind=kind):
+                link = dependency.parent if kind == 'parent' else dependency
+                link.parent.mkdir(parents=True, exist_ok=True)
+                link.symlink_to(self.root / 'missing-target', target_is_directory=True)
+                output = self.root / ('optional-link-' + kind)
+                result = self.cli('build', '--source-root', self.repo, '--output', output,
+                                  '--source-sha', SHA, '--source-date-epoch', '1793059200')
+                self.rejected(result, 'symlink input is forbidden')
+                self.assertFalse(output.exists())
+                link.unlink()
+
     def test_license_notices_preserved_for_production_lock_dependencies(self):
         dep = self.repo / 'node_modules/synthetic-lib'; dep.mkdir(parents=True)
         (dep / 'package.json').write_text(json.dumps({'name': 'synthetic-lib', 'version': '1.2.3', 'license': 'MIT'}))
         (dep / 'LICENSE').write_text('Synthetic test-only notice.\n')
         path = self.repo / 'package-lock.json'; lock = json.loads(path.read_text())
-        lock['packages']['node_modules/synthetic-lib'] = {'version': '1.2.3', 'integrity': 'sha512-synthetic'}
-        path.write_text(json.dumps(lock))
-        out = self.build()
-        result = self.inspect(out)
-        self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertIn('licenses/synthetic-lib/LICENSE', json.loads(result.stdout)['files'])
-        with tarfile.open(out / 'aster-finance-frontend-0.5.10.tar.gz') as archive:
-            self.assertEqual(archive.extractfile('licenses/synthetic-lib/LICENSE').read(), b'Synthetic test-only notice.\n')
-            inventory = json.load(archive.extractfile('DEPENDENCIES.json'))
-            self.assertEqual(inventory['packages'][0]['name'], 'synthetic-lib')
+        for index, flags in enumerate(({}, {'optional': True}, {'devOptional': True})):
+            with self.subTest(flags=flags):
+                lock['packages']['node_modules/synthetic-lib'] = {
+                    'version': '1.2.3', 'integrity': 'sha512-synthetic', **flags,
+                }
+                path.write_text(json.dumps(lock))
+                out = self.build('notices-' + str(index))
+                result = self.inspect(out)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertIn('licenses/synthetic-lib/LICENSE', json.loads(result.stdout)['files'])
+                with tarfile.open(out / 'aster-finance-frontend-0.5.10.tar.gz') as archive:
+                    self.assertEqual(archive.extractfile('licenses/synthetic-lib/LICENSE').read(), b'Synthetic test-only notice.\n')
+                    inventory = json.load(archive.extractfile('DEPENDENCIES.json'))
+                    self.assertEqual(inventory['packages'][0]['name'], 'synthetic-lib')
 
     def replace_archive(self, out, mutate):
         path = out / 'aster-finance-frontend-0.5.10.tar.gz'

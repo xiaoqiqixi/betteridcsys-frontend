@@ -149,7 +149,14 @@ def collect(root):
         if not location or spec.get('dev') is True:
             continue
         require(valid_path(location) and location.startswith('node_modules/') and not spec.get('link'), 'unexpected dependency location')
-        package = decode(regular(root / location / 'package.json'))
+        try:
+            package = decode(regular(root / location / 'package.json'))
+        except FileNotFoundError:
+            # npm omits optional packages for other platforms. regular() still
+            # rejects symlink parents; partial installs must not be ignored.
+            if spec.get('optional') is True and not (root / location).exists():
+                continue
+            raise
         require(isinstance(package, dict) and package.get('version') == spec.get('version') and
                 isinstance(package.get('name'), str), 'installed dependency differs from lockfile')
         notices = []
