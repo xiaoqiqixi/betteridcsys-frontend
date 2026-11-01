@@ -13,3 +13,8 @@ artifacts/
 bin/
 __pycache__/
 *.tsbuildinfo
+
+# local tooling
+coverage/
+playwright-report/
+test-results/

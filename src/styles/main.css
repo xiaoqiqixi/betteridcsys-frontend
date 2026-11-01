@@ -1,0 +1,252 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/inter/wght.css';
+@import '@fontsource-variable/jetbrains-mono/wght.css';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Design tokens. Components only use the semantic names below (bg-surface, text-muted,
+ * border-line, bg-primary ...), so light/dark and accent switching never touch markup.
+ */
+:root {
+  color-scheme: light;
+  --bg: #f6f7f9;
+  --bg-sunken: #eef0f4;
+  --surface: #ffffff;
+  --surface-2: #f8f9fb;
+  --elevated: #ffffff;
+  --line: #e6e8ee;
+  --line-strong: #d5d9e1;
+  --fg: #0b0e14;
+  --fg-2: #343a46;
+  --muted: #69707e;
+  --faint: #9aa1ae;
+  --primary: #2f6bff;
+  --primary-hover: #2459e6;
+  --primary-fg: #ffffff;
+  --primary-soft: rgb(47 107 255 / 0.09);
+  --primary-line: rgb(47 107 255 / 0.28);
+  --success: #12a150;
+  --success-soft: rgb(18 161 80 / 0.1);
+  --warning: #c77700;
+  --warning-soft: rgb(217 119 6 / 0.12);
+  --danger: #d92d2d;
+  --danger-soft: rgb(217 45 45 / 0.1);
+  --info: #0e7cc4;
+  --info-soft: rgb(14 124 196 / 0.1);
+  --grid: rgb(11 14 20 / 0.045);
+  --glow-a: rgb(47 107 255 / 0.16);
+  --glow-b: rgb(124 92 246 / 0.12);
+  --shadow-color: 220 30% 20%;
+  --overlay: rgb(10 12 18 / 0.36);
+}
+
+.dark {
+  color-scheme: dark;
+  --bg: #0a0c11;
+  --bg-sunken: #07080c;
+  --surface: #0f1218;
+  --surface-2: #13171e;
+  --elevated: #171b23;
+  --line: rgb(255 255 255 / 0.07);
+  --line-strong: rgb(255 255 255 / 0.12);
+  --fg: #eceef3;
+  --fg-2: #c4c9d3;
+  --muted: #8b92a1;
+  --faint: #5c6372;
+  --primary: #4d7dff;
+  --primary-hover: #6890ff;
+  --primary-fg: #ffffff;
+  --primary-soft: rgb(77 125 255 / 0.13);
+  --primary-line: rgb(77 125 255 / 0.35);
+  --success: #34d27a;
+  --success-soft: rgb(52 210 122 / 0.12);
+  --warning: #f2b544;
+  --warning-soft: rgb(242 181 68 / 0.12);
+  --danger: #ff6b6b;
+  --danger-soft: rgb(255 107 107 / 0.12);
+  --info: #4cc3ff;
+  --info-soft: rgb(76 195 255 / 0.12);
+  --grid: rgb(255 255 255 / 0.032);
+  --glow-a: rgb(77 125 255 / 0.2);
+  --glow-b: rgb(139 92 246 / 0.15);
+  --shadow-color: 225 40% 2%;
+  --overlay: rgb(3 4 7 / 0.62);
+}
+
+:root[data-accent='violet'] {
+  --primary: #6d4dff;
+  --primary-hover: #5b3cf0;
+  --primary-soft: rgb(109 77 255 / 0.1);
+  --primary-line: rgb(109 77 255 / 0.3);
+}
+:root[data-accent='emerald'] {
+  --primary: #0f9f6e;
+  --primary-hover: #0b875d;
+  --primary-soft: rgb(15 159 110 / 0.1);
+  --primary-line: rgb(15 159 110 / 0.3);
+}
+:root[data-accent='amber'] {
+  --primary: #d97a06;
+  --primary-hover: #bf6a04;
+  --primary-soft: rgb(217 122 6 / 0.1);
+  --primary-line: rgb(217 122 6 / 0.3);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-sunken: var(--bg-sunken);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-elevated: var(--elevated);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-fg: var(--fg);
+  --color-fg-2: var(--fg-2);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-fg: var(--primary-fg);
+  --color-primary-soft: var(--primary-soft);
+  --color-primary-line: var(--primary-line);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --color-overlay: var(--overlay);
+}
+
+@theme {
+  --font-sans:
+    'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'PingFang SC', 'Hiragino Sans GB',
+    'Noto Sans CJK SC', 'Microsoft YaHei', sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --shadow-xs: 0 1px 2px hsl(var(--shadow-color) / 0.06);
+  --shadow-sm: 0 1px 2px hsl(var(--shadow-color) / 0.06), 0 2px 6px -2px hsl(var(--shadow-color) / 0.08);
+  --shadow-md: 0 2px 4px hsl(var(--shadow-color) / 0.05), 0 10px 24px -6px hsl(var(--shadow-color) / 0.14);
+  --shadow-lg: 0 4px 8px hsl(var(--shadow-color) / 0.05), 0 24px 56px -12px hsl(var(--shadow-color) / 0.22);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --animate-fade-in: fade-in 0.24s var(--ease-out-quart);
+  --animate-rise: rise 0.42s var(--ease-out-quart) both;
+  --animate-pop: pop 0.18s var(--ease-out-quart);
+  --animate-shimmer: shimmer 1.6s linear infinite;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  }
+  @keyframes pop {
+    from {
+      opacity: 0;
+      transform: scale(0.97);
+    }
+  }
+  @keyframes shimmer {
+    from {
+      background-position: -400px 0;
+    }
+    to {
+      background-position: 400px 0;
+    }
+  }
+}
+
+@layer base {
+  html {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-feature-settings: 'cv11', 'ss01', 'ss03';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    min-height: 100dvh;
+  }
+  ::selection {
+    background: var(--primary-soft);
+    color: var(--fg);
+  }
+  :focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  button,
+  [role='button'] {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Hairline grid used behind marketing sections and empty states. */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, var(--grid) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+  .mask-fade-b {
+    mask-image: linear-gradient(to bottom, black 55%, transparent);
+  }
+  .mask-radial {
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 40%, transparent 100%);
+  }
+  .glow {
+    background:
+      radial-gradient(600px 320px at 15% 10%, var(--glow-a), transparent 70%),
+      radial-gradient(520px 300px at 85% 0%, var(--glow-b), transparent 70%);
+  }
+  .text-gradient {
+    background: linear-gradient(180deg, var(--fg) 30%, color-mix(in oklab, var(--fg) 55%, transparent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .skeleton {
+    background: linear-gradient(90deg, var(--surface-2) 0, var(--line) 50%, var(--surface-2) 100%);
+    background-size: 800px 100%;
+    animation: var(--animate-shimmer);
+  }
+  .num {
+    font-variant-numeric: tabular-nums;
+  }
+}
