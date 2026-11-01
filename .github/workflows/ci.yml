@@ -24,6 +24,7 @@ jobs:
         run: |
           npm ci --include=dev --no-audit --no-fund
           npm run typecheck
+          npm run lint
           npm test
           npm run build
           npm run format:check
