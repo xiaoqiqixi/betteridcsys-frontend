@@ -4,6 +4,7 @@ import { api } from '@/contract'
 import { useApiMutation, useApiQuery } from '@/shared/api/query'
 import { useErrorText } from '@/shared/composables/errors'
 import { useToast } from '@/shared/composables/toast'
+import UiErrorState from '@/shared/ui/UiErrorState.vue'
 import UiCard from '@/shared/ui/UiCard.vue'
 import UiSkeleton from '@/shared/ui/UiSkeleton.vue'
 import UiSwitch from '@/shared/ui/UiSwitch.vue'
@@ -27,7 +28,8 @@ const keys = [
 
 <template>
   <UiCard :title="$t('account.tab.notifications')" :description="$t('account.notificationsHint')">
-    <UiSkeleton v-if="!prefs.data.value" :lines="5" />
+    <UiErrorState v-if="prefs.isError.value" :error="prefs.error.value" @retry="prefs.refetch()" />
+    <UiSkeleton v-else-if="!prefs.data.value" :lines="5" />
     <div v-else class="flex flex-col divide-y divide-line">
       <div v-for="k in keys" :key="k" class="py-3.5 first:pt-0 last:pb-0">
         <UiSwitch

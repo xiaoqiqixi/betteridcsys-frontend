@@ -141,6 +141,7 @@ function submit() {
     >
       <UiSelect
         v-model="form.currency"
+        :aria-label="$t('auth.currency')"
         :options="
           site.enabledCurrencies.value.map((c) => ({ value: c.code, label: `${c.code} · ${c.name}` }))
         "

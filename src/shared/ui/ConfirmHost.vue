@@ -38,7 +38,13 @@ function finish(ok: boolean) {
           confirmState.current.typed
         }}</code>
       </p>
-      <UiInput v-model="typed" mono autocomplete="off" @keydown.enter="ready && finish(true)" />
+      <UiInput
+        :aria-label="$t('common.typeToConfirm')"
+        v-model="typed"
+        mono
+        autocomplete="off"
+        @keydown.enter="ready && finish(true)"
+      />
     </div>
     <template #footer>
       <UiButton variant="ghost" @click="finish(false)">{{ $t('common.cancel') }}</UiButton>

@@ -9,6 +9,7 @@ import { useErrorText } from '@/shared/composables/errors'
 import { useToast } from '@/shared/composables/toast'
 import UiBadge from '@/shared/ui/UiBadge.vue'
 import UiButton from '@/shared/ui/UiButton.vue'
+import UiErrorState from '@/shared/ui/UiErrorState.vue'
 import UiCard from '@/shared/ui/UiCard.vue'
 import UiField from '@/shared/ui/UiField.vue'
 import UiInput from '@/shared/ui/UiInput.vue'
@@ -81,6 +82,12 @@ async function doRevoke(id: string) {
 
     <UiCard :title="$t('account.sessions')" :description="$t('account.sessionsHint')" :padded="false">
       <div v-if="sessions.isPending.value" class="p-5"><UiSkeleton :lines="3" /></div>
+      <UiErrorState
+        v-else-if="sessions.isError.value"
+        :error="sessions.error.value"
+        compact
+        @retry="sessions.refetch()"
+      />
       <ul v-else class="divide-y divide-line">
         <li v-for="s in sessions.data.value" :key="s.id" class="flex items-center gap-3 px-5 py-3">
           <component :is="mobile(s.user_agent) ? Smartphone : Laptop" class="size-4 shrink-0 text-muted" />
@@ -102,7 +109,13 @@ async function doRevoke(id: string) {
     </UiCard>
 
     <UiCard :title="$t('account.loginHistory')" :padded="false">
-      <ul class="divide-y divide-line">
+      <UiErrorState
+        v-if="history.isError.value"
+        :error="history.error.value"
+        compact
+        @retry="history.refetch()"
+      />
+      <ul v-else class="divide-y divide-line">
         <li
           v-for="e in history.items.value"
           :key="e.id"

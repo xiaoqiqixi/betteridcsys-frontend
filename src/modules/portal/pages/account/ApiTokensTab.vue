@@ -14,6 +14,7 @@ import UiCheckbox from '@/shared/ui/UiCheckbox.vue'
 import UiCopy from '@/shared/ui/UiCopy.vue'
 import UiDialog from '@/shared/ui/UiDialog.vue'
 import UiEmpty from '@/shared/ui/UiEmpty.vue'
+import UiErrorState from '@/shared/ui/UiErrorState.vue'
 import UiField from '@/shared/ui/UiField.vue'
 import UiInput from '@/shared/ui/UiInput.vue'
 import UiSelect from '@/shared/ui/UiSelect.vue'
@@ -74,6 +75,12 @@ async function doRevoke(id: string, name: string) {
       ></template
     >
     <div v-if="tokens.isPending.value" class="p-5"><UiSkeleton :lines="3" /></div>
+    <UiErrorState
+      v-else-if="tokens.isError.value"
+      :error="tokens.error.value"
+      compact
+      @retry="tokens.refetch()"
+    />
     <UiEmpty v-else-if="!tokens.data.value?.length" compact :icon="Code2" :title="$t('account.noTokens')" />
     <ul v-else class="divide-y divide-line">
       <li v-for="tk in tokens.data.value" :key="tk.id" class="flex flex-wrap items-center gap-3 px-5 py-3">

@@ -137,7 +137,7 @@ const formError = computed(() => {
         </UiField>
       </div>
       <UiCheckbox v-model="form.accept_terms">
-        <i18n-t keypath="auth.acceptTerms" tag="span">
+        <i18n-t scope="global" keypath="auth.acceptTerms" tag="span">
           <template #terms>
             <a
               v-if="site.settings.data.value?.terms_url"

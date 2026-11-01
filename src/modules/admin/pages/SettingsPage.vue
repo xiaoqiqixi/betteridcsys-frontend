@@ -137,6 +137,7 @@ const checkUpdates = useApiMutation(api.admin.checkUpdates, { invalidates: [api.
                       :key="l"
                       type="button"
                       :aria-pressed="sf.logo === l"
+                      :aria-label="`${$t('admin.settings.logo')} ${l}`"
                       :class="['rounded-lg p-1 ring-2', sf.logo === l ? 'ring-primary' : 'ring-transparent']"
                       @click="sf.logo = l"
                     >

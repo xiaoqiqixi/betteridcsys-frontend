@@ -11,6 +11,7 @@ import UiButton from '@/shared/ui/UiButton.vue'
 import UiCard from '@/shared/ui/UiCard.vue'
 import UiDialog from '@/shared/ui/UiDialog.vue'
 import UiEmpty from '@/shared/ui/UiEmpty.vue'
+import UiErrorState from '@/shared/ui/UiErrorState.vue'
 import UiField from '@/shared/ui/UiField.vue'
 import UiInput from '@/shared/ui/UiInput.vue'
 import UiSkeleton from '@/shared/ui/UiSkeleton.vue'
@@ -53,6 +54,7 @@ async function doRemove(id: string, name: string) {
       ></template
     >
     <div v-if="keys.isPending.value" class="p-5"><UiSkeleton :lines="3" /></div>
+    <UiErrorState v-else-if="keys.isError.value" :error="keys.error.value" compact @retry="keys.refetch()" />
     <UiEmpty
       v-else-if="!keys.data.value?.length"
       compact

@@ -37,9 +37,9 @@ const product = useApiQuery(api.admin.product, () =>
   isNew.value ? null : { params: { id: String(route.params.id) } },
 )
 const taxonomy = useApiQuery(api.admin.taxonomy)
-const currencies = useApiQuery(api.admin.currencies)
+const currencies = useApiQuery(api.site.currencies)
 const images = useApiQuery(api.admin.osImages)
-const controllers = useApiQuery(api.admin.controllers)
+const controllers = useApiQuery(api.admin.controllers, () => (session.can('integrations.write') ? {} : null))
 const readOnly = computed(() => !session.can('products.write'))
 
 const blank = (): ProductUpsert => ({

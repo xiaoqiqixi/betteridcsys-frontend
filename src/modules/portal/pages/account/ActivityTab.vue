@@ -2,6 +2,7 @@
 import { History } from '@lucide/vue'
 import { api } from '@/contract'
 import { useApiList } from '@/shared/api/query'
+import UiErrorState from '@/shared/ui/UiErrorState.vue'
 import UiCard from '@/shared/ui/UiCard.vue'
 import UiEmpty from '@/shared/ui/UiEmpty.vue'
 import UiLoadMore from '@/shared/ui/UiLoadMore.vue'
@@ -14,6 +15,7 @@ const list = useApiList(api.account.activity, { query: { limit: 25 } })
 <template>
   <UiCard :title="$t('account.tab.activity')" :description="$t('account.activityHint')" :padded="false">
     <div v-if="list.isPending.value" class="p-5"><UiSkeleton :lines="5" /></div>
+    <UiErrorState v-else-if="list.isError.value" :error="list.error.value" compact @retry="list.refetch()" />
     <UiEmpty v-else-if="!list.items.value.length" compact :icon="History" :title="$t('account.noActivity')" />
     <ul v-else class="divide-y divide-line">
       <li

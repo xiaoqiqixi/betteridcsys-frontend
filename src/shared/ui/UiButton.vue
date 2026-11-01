@@ -34,7 +34,7 @@ const classes = computed(() =>
       'size-9': props.size === 'md' && props.square,
       'size-11': props.size === 'lg' && props.square,
       'w-full': props.block,
-      'bg-primary text-primary-fg shadow-xs hover:bg-primary-hover': props.variant === 'primary',
+      'bg-primary-solid text-primary-fg shadow-xs hover:bg-primary-hover': props.variant === 'primary',
       'border border-line bg-surface text-fg shadow-xs hover:border-line-strong hover:bg-surface-2':
         props.variant === 'secondary',
       'border border-line-strong bg-transparent text-fg hover:bg-surface-2': props.variant === 'outline',

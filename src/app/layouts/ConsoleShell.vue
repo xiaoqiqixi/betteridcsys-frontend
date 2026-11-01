@@ -29,7 +29,7 @@ const mobileOpen = ref(false)
         ]"
       >
         <div :class="['flex h-14 items-center gap-2.5', prefs.sidebarCollapsed ? 'justify-center' : 'px-4']">
-          <RouterLink :to="home" class="flex min-w-0 items-center gap-2.5">
+          <RouterLink :to="home" :aria-label="site.name.value" class="flex min-w-0 items-center gap-2.5">
             <BrandMark :logo="site.settings.data.value?.logo" />
             <span
               v-if="!prefs.sidebarCollapsed"
@@ -50,6 +50,7 @@ const mobileOpen = ref(false)
         <div class="border-t border-line p-3">
           <button
             class="flex h-8 w-full items-center gap-2 rounded-md px-2.5 text-[13px] text-muted hover:bg-surface-2 hover:text-fg"
+            :aria-label="$t('nav.collapse')"
             :class="prefs.sidebarCollapsed && 'justify-center px-0'"
             @click="prefs.sidebarCollapsed = !prefs.sidebarCollapsed"
           >
@@ -70,7 +71,7 @@ const mobileOpen = ref(false)
           >
             <Menu class="size-5" />
           </button>
-          <RouterLink :to="home" class="flex items-center gap-2 lg:hidden"
+          <RouterLink :to="home" :aria-label="site.name.value" class="flex items-center gap-2 lg:hidden"
             ><BrandMark :logo="site.settings.data.value?.logo" :size="24"
           /></RouterLink>
           <div class="min-w-0 flex-1"><slot name="header" /></div>

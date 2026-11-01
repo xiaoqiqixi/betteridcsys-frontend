@@ -53,7 +53,7 @@ const columns = computed(() => [
   <div>
     <UiPageHeader :title="$t('nav.credit')" :description="$t('billing.subtitle')" />
     <UiErrorState v-if="credit.isError.value" :error="credit.error.value" @retry="credit.refetch()" />
-    <div v-else class="grid gap-6 lg:grid-cols-[1fr_1.3fr]">
+    <div v-else class="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)]">
       <div class="relative overflow-hidden rounded-xl border border-line bg-surface p-6 shadow-xs">
         <div class="glow pointer-events-none absolute inset-0 opacity-60" />
         <div class="relative">
@@ -91,10 +91,11 @@ const columns = computed(() => [
           >
             <UiInput
               v-model="amount"
+              :aria-label="$t('billing.customAmount')"
               inputmode="decimal"
               :placeholder="$t('billing.customAmount')"
               :invalid="!!rangeError"
-              class="flex-1"
+              class="min-w-0 flex-1"
             >
               <template #prefix
                 ><span class="text-xs">{{ c.balance.currency }}</span></template
@@ -108,8 +109,8 @@ const columns = computed(() => [
               >{{ $t('billing.continue') }}</UiButton
             >
           </form>
-          <p v-if="rangeError" class="-mt-2 text-xs text-danger">{{ rangeError }}</p>
-          <p v-else-if="topUp.error.value" class="-mt-2 text-xs text-danger">
+          <p v-if="rangeError" class="-mt-2 text-xs text-danger" role="alert">{{ rangeError }}</p>
+          <p v-else-if="topUp.error.value" class="-mt-2 text-xs text-danger" role="alert">
             {{ errors.text(topUp.error.value) }}
           </p>
         </div>

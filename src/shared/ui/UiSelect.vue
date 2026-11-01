@@ -19,6 +19,7 @@ export interface Option<V> {
   hint?: string
   disabled?: boolean
 }
+defineOptions({ inheritAttrs: false })
 const model = defineModel<T>()
 withDefaults(
   defineProps<{
@@ -45,7 +46,9 @@ const inner = computed({
 <template>
   <SelectRoot v-model="inner as any" :disabled="disabled">
     <SelectTrigger
+      v-bind="$attrs"
       :id="id"
+      :aria-invalid="invalid || undefined"
       :class="[
         'flex w-full items-center justify-between gap-2 rounded-md border bg-surface px-3 text-left shadow-xs transition-[border-color,box-shadow] outline-none',
         'focus-visible:border-primary focus-visible:ring-3 focus-visible:ring-primary-soft data-[placeholder]:text-faint',

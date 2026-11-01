@@ -20,19 +20,20 @@
   --fg: #0b0e14;
   --fg-2: #343a46;
   --muted: #69707e;
-  --faint: #9aa1ae;
-  --primary: #2f6bff;
-  --primary-hover: #2459e6;
+  --faint: #69707e;
+  --primary: #2459d8;
+  --primary-hover: #204fc4;
   --primary-fg: #ffffff;
+  --primary-solid: #2459d8;
   --primary-soft: rgb(47 107 255 / 0.09);
   --primary-line: rgb(47 107 255 / 0.28);
-  --success: #12a150;
+  --success: #08783c;
   --success-soft: rgb(18 161 80 / 0.1);
-  --warning: #c77700;
+  --warning: #915500;
   --warning-soft: rgb(217 119 6 / 0.12);
-  --danger: #d92d2d;
+  --danger: #c92424;
   --danger-soft: rgb(217 45 45 / 0.1);
-  --info: #0e7cc4;
+  --info: #09659e;
   --info-soft: rgb(14 124 196 / 0.1);
   --grid: rgb(11 14 20 / 0.045);
   --glow-a: rgb(47 107 255 / 0.16);
@@ -53,10 +54,11 @@
   --fg: #eceef3;
   --fg-2: #c4c9d3;
   --muted: #8b92a1;
-  --faint: #5c6372;
-  --primary: #4d7dff;
-  --primary-hover: #6890ff;
+  --faint: #929bad;
+  --primary: #7197ff;
+  --primary-hover: #204fc4;
   --primary-fg: #ffffff;
+  --primary-solid: #2459d8;
   --primary-soft: rgb(77 125 255 / 0.13);
   --primary-line: rgb(77 125 255 / 0.35);
   --success: #34d27a;
@@ -76,18 +78,21 @@
 
 :root[data-accent='violet'] {
   --primary: #6d4dff;
+  --primary-solid: #6d4dff;
   --primary-hover: #5b3cf0;
   --primary-soft: rgb(109 77 255 / 0.1);
   --primary-line: rgb(109 77 255 / 0.3);
 }
 :root[data-accent='emerald'] {
   --primary: #0f9f6e;
+  --primary-solid: #087a54;
   --primary-hover: #0b875d;
   --primary-soft: rgb(15 159 110 / 0.1);
   --primary-line: rgb(15 159 110 / 0.3);
 }
 :root[data-accent='amber'] {
   --primary: #d97a06;
+  --primary-solid: #a45900;
   --primary-hover: #bf6a04;
   --primary-soft: rgb(217 122 6 / 0.1);
   --primary-line: rgb(217 122 6 / 0.3);
@@ -106,6 +111,7 @@
   --color-muted: var(--muted);
   --color-faint: var(--faint);
   --color-primary: var(--primary);
+  --color-primary-solid: var(--primary-solid);
   --color-primary-hover: var(--primary-hover);
   --color-primary-fg: var(--primary-fg);
   --color-primary-soft: var(--primary-soft);

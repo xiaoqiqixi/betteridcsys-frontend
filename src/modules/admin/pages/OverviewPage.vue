@@ -50,6 +50,7 @@ const attentionLink = (kind: string, id: string) =>
         <div class="w-36">
           <UiSelect
             v-model="currency"
+            :aria-label="$t('common.currency')"
             size="sm"
             :options="
               (site.currencies.data.value?.currencies ?? []).map((c) => ({ value: c.code, label: c.code }))
