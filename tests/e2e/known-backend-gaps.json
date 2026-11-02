@@ -1,5 +1,5 @@
 {
-  "source_commit": "6c1e38a2d8414c9ef4f8409748263a0dba27eeef",
+  "source_commit": "caeef77979803889d4223623844737026d595316",
   "operations": {
     "getClientOverview": [
       "{\"code\":\"invalid_type\",\"expected\":\"array\",\"message\":\"Invalid input: expected array, received undefined\",\"path\":[\"announcements\"]}",

@@ -36,6 +36,17 @@ const schema: ModuleSchema = {
 }
 afterEach(() => localStorage.clear())
 describe('module schema forms', () => {
+  it('matches server Unicode length, optional empty field and safe number rules', () => {
+    const unicode: ModuleSchema = {
+      type: 'object',
+      additionalProperties: false,
+      properties: { label: { type: 'string', minLength: 1, maxLength: 2 }, count: { type: 'number' } },
+    }
+    expect(validateModuleFields(unicode, { label: '🌊岛', count: 1.5 })).toEqual({})
+    expect(validateModuleFields(unicode, { label: '' })).toEqual({ label: 'range' })
+    expect(validateModuleFields(unicode, { label: '🌊🌊岛' })).toEqual({ label: 'range' })
+    expect(validateModuleFields(unicode, { count: Number.MAX_SAFE_INTEGER + 1 })).toEqual({ count: 'type' })
+  })
   it('validates required false, numeric types, enums, boundaries and unknown fields', () => {
     const values = { count: 2, enabled: false, password: 'test-password-only' }
     expect(validateModuleFields(schema, values)).toEqual({})

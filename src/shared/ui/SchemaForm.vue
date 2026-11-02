@@ -122,7 +122,7 @@ defineExpose({ validate })
           :min="'minimum' in field ? field.minimum : undefined"
           :max="'maximum' in field ? field.maximum : undefined"
           :step="field.type === 'integer' ? 1 : 'any'"
-          :maxlength="field.type === 'string' ? (field.maxLength ?? 4000) : undefined"
+          :maxlength="field.type === 'string' ? (field.maxLength ?? 4000) * 2 : undefined"
           :required="schema.required?.includes(key)"
           :disabled="disabled"
           @blur="touched[key] = true"

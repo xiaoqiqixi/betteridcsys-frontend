@@ -28,7 +28,7 @@ export function validateModuleFields(schema: ModuleSchema | null | undefined, va
   for (const key of Object.keys(values)) if (!Object.hasOwn(schema.properties, key)) errors[key] = 'unknown'
   for (const [key, field] of Object.entries(schema.properties)) {
     const value = values[key]
-    if (value === undefined || value === '') {
+    if (value === undefined || (value === '' && schema.required?.includes(key))) {
       if (schema.required?.includes(key)) errors[key] = 'required'
       continue
     }
@@ -43,7 +43,7 @@ export function validateModuleFields(schema: ModuleSchema | null | undefined, va
         errors[key] = 'range'
     } else if (field.type === 'string') {
       if (typeof value !== 'string') errors[key] = 'type'
-      else if (value.length < (field.minLength ?? 0) || value.length > (field.maxLength ?? 4000))
+      else if ([...value].length < (field.minLength ?? 0) || [...value].length > (field.maxLength ?? 4000))
         errors[key] = 'range'
       else if (field.enum && !field.enum.includes(value)) errors[key] = 'choice'
     } else if (field.type === 'boolean') {
@@ -53,6 +53,7 @@ export function validateModuleFields(schema: ModuleSchema | null | undefined, va
       if (
         typeof value !== 'number' ||
         !Number.isFinite(value) ||
+        Math.abs(value) > Number.MAX_SAFE_INTEGER ||
         (field.type === 'integer' && !Number.isSafeInteger(value))
       )
         errors[key] = 'type'
