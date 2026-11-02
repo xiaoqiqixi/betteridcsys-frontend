@@ -9,6 +9,7 @@ const idQuery = PageQuery
 import { ok } from './responses'
 
 import * as A from './admin'
+import * as F from './affiliate'
 import * as I from './identity'
 import { api as clientApi } from './client-endpoints'
 /* ------------------------------------------------------------------ admin */
@@ -16,6 +17,75 @@ import { api as clientApi } from './client-endpoints'
 const staff = <const P extends string>(p: P) => `/admin${p}` as const
 
 const admin = {
+  affiliateSettings: endpoint({
+    id: 'adminGetAffiliateSettings',
+    method: 'GET',
+    path: staff('/affiliate/settings'),
+    access: 'staff',
+    permission: 'settings.write',
+    tag: 'Admin: Affiliates',
+    summary: 'adminGetAffiliateSettings',
+    response: F.AffiliateSettings,
+  }),
+  updateAffiliateSettings: endpoint({
+    id: 'adminUpdateAffiliateSettings',
+    method: 'PATCH',
+    path: staff('/affiliate/settings'),
+    access: 'staff',
+    permission: 'settings.write',
+    tag: 'Admin: Affiliates',
+    summary: 'adminUpdateAffiliateSettings',
+    body: F.AffiliateSettings,
+    response: F.AffiliateSettings,
+  }),
+  affiliates: endpoint({
+    id: 'adminListAffiliates',
+    method: 'GET',
+    path: staff('/affiliates'),
+    access: 'staff',
+    permission: 'clients.write',
+    tag: 'Admin: Affiliates',
+    summary: 'adminListAffiliates',
+    query: idQuery.extend({
+      q: z.string().max(120).optional(),
+      status: z.enum(['active', 'suspended']).optional(),
+    }),
+    response: page(F.AdminAffiliateSummary),
+  }),
+  affiliate: endpoint({
+    id: 'adminGetAffiliate',
+    method: 'GET',
+    path: staff('/affiliates/{id}'),
+    access: 'staff',
+    permission: 'clients.write',
+    tag: 'Admin: Affiliates',
+    summary: 'adminGetAffiliate',
+    response: F.AdminAffiliate,
+  }),
+  updateAffiliate: endpoint({
+    id: 'adminUpdateAffiliate',
+    method: 'PATCH',
+    path: staff('/affiliates/{id}'),
+    access: 'staff',
+    permission: 'clients.write',
+    tag: 'Admin: Affiliates',
+    summary: 'adminUpdateAffiliate',
+    body: F.AffiliatePatch,
+    response: F.AdminAffiliate,
+  }),
+  affiliatePayout: endpoint({
+    id: 'adminAffiliatePayout',
+    method: 'POST',
+    path: staff('/affiliates/{id}/payouts'),
+    access: 'staff',
+    permission: 'clients.write',
+    tag: 'Admin: Affiliates',
+    summary: 'adminAffiliatePayout',
+    body: F.AffiliatePayout,
+    idempotent: true,
+    response: F.AdminAffiliate,
+  }),
+
   overview: endpoint({
     id: 'adminOverview',
     method: 'GET',

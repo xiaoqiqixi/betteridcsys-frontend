@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { Id, LocalizedText, MinorAmount, Money, Timestamp } from './common'
+import { Id, LocalizedText, Money, Timestamp } from './common'
 import { Announcement } from './site'
 import { InvoiceSummary, ServiceSummary } from './commerce'
 
@@ -66,33 +66,7 @@ export const TicketReply = z.object({ body: z.string().min(1).max(20000) })
 
 /* --------------------------------------------------------------- affiliate */
 
-export const AffiliateSummary = z
-  .object({
-    enabled: z.boolean(),
-    code: z.string().nullable(),
-    link: z.string().nullable(),
-    commission_percent: z.number().min(0).max(100),
-    referrals: z.int().min(0),
-    pending: Money,
-    available: Money,
-    paid_out: Money,
-    hold_days: z.int().min(0),
-  })
-  .meta({ id: 'AffiliateSummary' })
-export type AffiliateSummary = z.infer<typeof AffiliateSummary>
-
-export const AffiliateReferral = z
-  .object({
-    id: Id,
-    joined_at: Timestamp,
-    /** Masked, e.g. "j***@example.com". */
-    client: z.string(),
-    commissions: Money,
-    status: z.enum(['signed_up', 'converted']),
-  })
-  .meta({ id: 'AffiliateReferral' })
-
-export const AffiliateWithdraw = z.object({ amount_minor: MinorAmount.min(1) })
+export { AffiliateSummary, AffiliateReferral, AffiliateWithdraw } from './affiliate'
 
 /* ---------------------------------------------------------------- overview */
 

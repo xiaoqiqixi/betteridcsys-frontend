@@ -7,6 +7,7 @@ import { useApiList, useApiMutation, useApiQuery } from '@/shared/api/query'
 import { useErrorText } from '@/shared/composables/errors'
 import { useFormat } from '@/shared/composables/format'
 import { useToast } from '@/shared/composables/toast'
+import { useSession } from '@/shared/stores/session'
 import { parseDecimal } from '@/shared/lib/money'
 import UiButton from '@/shared/ui/UiButton.vue'
 import UiCard from '@/shared/ui/UiCard.vue'
@@ -30,8 +31,12 @@ const summary = useApiQuery(api.affiliate.summary)
 const a = computed(() => summary.data.value)
 const referrals = useApiList(api.affiliate.referrals, () => ({ query: { limit: 25 } }))
 const activate = useApiMutation(api.affiliate.activate, { invalidates: [api.affiliate.summary] })
+const session = useSession()
+const balance = computed(() => a.value?.balances.find((b) => b.currency === session.user?.currency))
 const amount = ref('')
-const minor = computed(() => (a.value ? parseDecimal(amount.value, a.value.available.decimal_places) : null))
+const minor = computed(() =>
+  balance.value ? parseDecimal(amount.value, balance.value.available.decimal_places) : null,
+)
 const withdraw = useApiMutation(api.affiliate.withdraw, {
   invalidates: [api.affiliate.summary, api.billing.credit],
   onSuccess: () => {
@@ -56,7 +61,7 @@ const columns = computed(() => [
       <UiEmpty
         :icon="Gift"
         :title="$t('affiliate.joinTitle')"
-        :description="$t('affiliate.joinBody', { pct: a.commission_percent })"
+        :description="$t('affiliate.joinBody', { pct: a.rate_bp / 100 })"
       >
         <UiButton
           variant="primary"
@@ -74,31 +79,40 @@ const columns = computed(() => [
             <UiCopy v-if="a.link" :text="a.link" mono class="mt-1 text-sm" />
           </div>
           <p class="text-[13px] text-muted">
-            {{ $t('affiliate.terms', { pct: a.commission_percent, days: a.hold_days }) }}
+            {{ $t('affiliate.terms', { pct: a.rate_bp / 100, days: a.hold_days }) }}
           </p>
         </div>
       </UiCard>
       <div class="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-4">
         <UiStat :label="$t('affiliate.referrals')" :value="f.number(a.referrals)" :icon="Users" />
-        <UiStat :label="$t('affiliate.pending')" :value="f.money(a.pending)" />
-        <UiStat :label="$t('affiliate.available')" :value="f.money(a.available)" />
-        <UiStat :label="$t('affiliate.paidOut')" :value="f.money(a.paid_out)" />
+        <UiStat :label="$t('affiliate.pending')" :value="balance ? f.money(balance.pending) : '—'" />
+        <UiStat :label="$t('affiliate.available')" :value="balance ? f.money(balance.available) : '—'" />
+        <UiStat :label="$t('affiliate.paidOut')" :value="balance ? f.money(balance.paid_out) : '—'" />
       </div>
-      <UiCard class="mt-4" :title="$t('affiliate.withdrawTitle')" :description="$t('affiliate.withdrawHint')">
+      <UiCard
+        v-if="balance"
+        class="mt-4"
+        :title="$t('affiliate.withdrawTitle')"
+        :description="$t('affiliate.withdrawHint')"
+      >
         <form
           class="flex max-w-md gap-2"
           @submit.prevent="minor && withdraw.mutate({ body: { amount_minor: minor } })"
         >
-          <UiInput v-model="amount" inputmode="decimal" :placeholder="f.money(a.available)">
+          <UiInput
+            v-model="amount"
+            inputmode="decimal"
+            :placeholder="balance ? f.money(balance.available) : '—'"
+          >
             <template #prefix
-              ><span class="text-xs">{{ a.available.currency }}</span></template
+              ><span class="text-xs">{{ balance.currency }}</span></template
             >
           </UiInput>
           <UiButton
             type="submit"
             variant="primary"
             :loading="withdraw.isPending.value"
-            :disabled="!minor || minor > a.available.amount_minor || withdraw.uncertain.value"
+            :disabled="!minor || minor > balance.available.amount_minor || withdraw.uncertain.value"
             >{{ $t('affiliate.withdraw') }}</UiButton
           >
         </form>
@@ -123,7 +137,9 @@ const columns = computed(() => [
               $t(`affiliate.status.${row.status}`)
             }}</span></template
           >
-          <template #cell-commissions="{ row }"><UiMoney :value="row.commissions" /></template>
+          <template #cell-commissions="{ row }"
+            ><UiMoney v-for="money in row.commissions" :key="money.currency" :value="money" class="block"
+          /></template>
           <template #empty><UiEmpty compact :icon="Users" :title="$t('affiliate.noReferrals')" /></template>
         </UiTable>
         <UiLoadMore
