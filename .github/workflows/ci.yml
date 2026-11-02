@@ -47,6 +47,7 @@ jobs:
       - name: Preserve MySQL diagnostics and stop the disposable database
         if: always()
         run: |
+          sudo journalctl -u fe2-bank.service --no-pager > artifacts/bank.log
           docker compose -f scripts/e2e/compose.yaml logs > artifacts/mysql.log
           docker compose -f scripts/e2e/compose.yaml down --volumes
       - name: Preserve browser evidence and backend logs
@@ -60,6 +61,7 @@ jobs:
             artifacts/e2e/results.json
             artifacts/backend.log
             artifacts/mysql.log
+            artifacts/bank.log
           retention-days: 7
   frontend:
     runs-on: ubuntu-24.04

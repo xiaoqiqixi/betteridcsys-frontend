@@ -114,7 +114,7 @@ ssh -F artifacts/lima/fe2/ssh.config -o ExitOnForwardFailure=yes -N \
 
 在 VM 中使用 `MYSQL_DSN='root@unix(/tmp/fe2-mysql.sock)/fe2_test?parseTime=true'` 和 `MYSQL_SOCKET=/tmp/fe2-mysql.sock`。Core 必须在 Linux 运行；当前支付插件运行时只接受 amd64 ELF，因此 `build-backend.sh` 构建本机架构 Core、amd64 bank-transfer。在 ARM VM 安装 `qemu-user-static`，安装脚本会通过它启动同一真实插件；CI amd64 不需要模拟器。插件工作 UID 28002 与 Core 分离，manifest/policy 由 root 拥有，socket 所在目录 0750、socket 0660，bank 配置仅包含虚构转账说明。
 
-后端环境：`APP_MODE=production`、`APP_ORIGIN=https://localhost:5178`、`LISTEN_ADDR=127.0.0.1:18080`、`MYSQL_ALLOW_INSECURE=true`、`PLUGIN_DIRECTORY=/opt/fe2/plugins`、`PLUGIN_POLICY_FILE=/opt/fe2/policy.json`。`SESSION_SECRET` 来自 `e2e:prepare` 生成的 `artifacts/session-secret`，不写入版本库。使用 `limactl shell --workdir=/workspace fe2 -- ...` 在 VM 执行 bootstrap、安装插件和运行 Core，宿主运行 Vite/Playwright。
+后端环境：`APP_MODE=production`、`APP_ORIGIN=https://localhost:5178`、`LISTEN_ADDR=127.0.0.1:18080`、`MYSQL_ALLOW_INSECURE=true`、`PLUGIN_DIRECTORY=/run/fe2/plugins`、`PLUGIN_POLICY_FILE=/run/fe2/policy.json`。`SESSION_SECRET` 来自 `e2e:prepare` 生成的 `artifacts/session-secret`，不写入版本库。使用 `limactl shell --workdir=/workspace fe2 -- ...` 在 VM 执行 bootstrap、安装插件和运行 Core，宿主运行 Vite/Playwright。
 
 ### 测试数据和验收范围
 

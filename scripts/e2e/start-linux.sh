@@ -7,7 +7,7 @@ export SESSION_SECRET="$(cat artifacts/session-secret)"
 export MYSQL_SOCKET="${MYSQL_SOCKET:-$PWD/artifacts/mysql-run/mysqld.sock}"
 export MYSQL_DSN="${MYSQL_DSN:-root@unix($MYSQL_SOCKET)/fe2_test?parseTime=true}"
 export MYSQL_ALLOW_INSECURE=true
-export PLUGIN_DIRECTORY=/opt/fe2/plugins PLUGIN_POLICY_FILE=/opt/fe2/policy.json
+export PLUGIN_DIRECTORY=/run/fe2/plugins PLUGIN_POLICY_FILE=/run/fe2/policy.json
 bash scripts/e2e/bootstrap.sh
 sudo bash scripts/e2e/install-bank.sh "$PWD/artifacts" "$(id -u)" "$(id -g)"
 artifacts/aster-api > artifacts/backend.log 2>&1 &
