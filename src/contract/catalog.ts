@@ -4,12 +4,10 @@ import { BillingCycle, CurrencyCode, Id, LocalizedText, MinorAmount } from './co
 
 /* ---------------------------------------------------------------- products */
 
-export const ProductKind = z
-  .enum(['cloud_server', 'dedicated_server', 'generic'])
-  .meta({
-    id: 'ProductKind',
-    description: 'Display category; provisioning is determined by the product module binding.',
-  })
+export const ProductKind = z.enum(['cloud_server', 'dedicated_server', 'generic']).meta({
+  id: 'ProductKind',
+  description: 'Display category; provisioning is determined by the product module binding.',
+})
 
 export const ProductSpecs = z
   .object({
