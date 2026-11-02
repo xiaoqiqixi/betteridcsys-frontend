@@ -11627,6 +11627,17 @@
           "Auth"
         ],
         "x-access": "public",
+        "parameters": [
+          {
+            "name": "referral_code",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 64
+            }
+          }
+        ],
         "security": [
           {}
         ],

@@ -55,6 +55,7 @@ export const pages: { name: string; path: string; actor: Actor }[] = [
     ['admin-integrations', '/admin/integrations'],
     ['admin-staff', '/admin/staff'],
     ['admin-audit', '/admin/audit'],
+    ['admin-affiliate', '/admin/affiliate'],
     ['admin-settings', '/admin/settings'],
     ['admin-forbidden', '/admin/forbidden'],
   ].map(([name, path]) => ({ name: name!, path: path!, actor: 'owner' as const })),

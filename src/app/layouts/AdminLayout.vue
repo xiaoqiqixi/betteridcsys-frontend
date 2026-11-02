@@ -2,6 +2,7 @@
 import {
   FolderTree,
   Gauge,
+  Gift,
   LifeBuoy,
   Megaphone,
   Package,
@@ -74,6 +75,7 @@ const groups = computed<NavGroup[]>(() =>
         def('/admin/integrations', 'integrations', Plug, 'integrations.write'),
         def('/admin/staff', 'staff', ShieldCheck, 'staff.write'),
         def('/admin/audit', 'audit', ScrollText, 'audit.read'),
+        def('/admin/affiliate', 'affiliate', Gift, 'settings.write'),
         def('/admin/settings', 'settings', Settings, 'settings.write'),
       ],
     },

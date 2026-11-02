@@ -52,6 +52,7 @@ const mainPages = new Set([
   'admin-product',
   'admin-client',
   'admin-settings',
+  'admin-affiliate',
 ])
 for (const width of [375, 768, 1280, 1440]) {
   for (const theme of ['light', 'dark'] as const) {

@@ -306,6 +306,12 @@ export const routes: RouteRecordRaw[] = [
         meta: { permission: 'audit.read', title: 'admin.nav.audit' },
       },
       {
+        path: 'affiliate',
+        name: 'admin-affiliate',
+        component: () => import('@/modules/admin/pages/AffiliatePage.vue'),
+        meta: { permission: 'settings.write', title: 'admin.nav.affiliate' },
+      },
+      {
         path: 'settings',
         name: 'admin-settings',
         component: admin('SettingsPage'),

@@ -21,7 +21,9 @@ export const useSession = defineStore('session', () => {
   function load(force = false): Promise<void> {
     if (ready.value && !force) return Promise.resolve()
     loading ??= api()
-      .call(endpoints.site.session)
+      .call(endpoints.site.session, {
+        query: { referral_code: new URLSearchParams(window.location.search).get('ref') || undefined },
+      })
       .then(apply)
       .finally(() => {
         loading = null

@@ -18,6 +18,7 @@ const site = {
     access: 'public',
     tag: 'Auth',
     summary: 'Current session and CSRF token',
+    query: z.object({ referral_code: z.string().max(64).optional() }),
     response: I.Session,
   }),
   settings: endpoint({

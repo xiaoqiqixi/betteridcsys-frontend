@@ -83,12 +83,32 @@ const columns = computed(() => [
           </p>
         </div>
       </UiCard>
-      <div class="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-4">
+      <p class="mt-4 text-sm text-muted">
+        {{ $t(`affiliate.scope.${a.scope}`, { months: a.scope_months }) }}
+      </p>
+      <p v-if="!a.earning_enabled" class="mt-2 text-sm text-muted">{{ $t('affiliate.paused') }}</p>
+      <p class="mt-2 text-sm text-muted">{{ $t('affiliate.cashRules') }}</p>
+      <div class="mt-4">
         <UiStat :label="$t('affiliate.referrals')" :value="f.number(a.referrals)" :icon="Users" />
-        <UiStat :label="$t('affiliate.pending')" :value="balance ? f.money(balance.pending) : '—'" />
-        <UiStat :label="$t('affiliate.available')" :value="balance ? f.money(balance.available) : '—'" />
-        <UiStat :label="$t('affiliate.paidOut')" :value="balance ? f.money(balance.paid_out) : '—'" />
       </div>
+      <UiCard v-for="b in a.balances" :key="b.currency" class="mt-4" :title="b.currency">
+        <div class="grid grid-cols-2 gap-3 lg:grid-cols-4">
+          <UiStat :label="$t('affiliate.pending')" :value="f.money(b.pending)" />
+          <UiStat :label="$t('affiliate.available')" :value="f.money(b.available)" />
+          <UiStat :label="$t('affiliate.paidOut')" :value="f.money(b.paid_out)" />
+          <UiStat :label="$t('affiliate.debt')" :value="f.money(b.debt)" />
+        </div>
+        <p class="mt-3 text-xs text-muted">
+          {{
+            $t('affiliate.minimum', {
+              amount: f.money({
+                ...b.available,
+                amount_minor: a.min_withdraw.find((m) => m.currency === b.currency)?.amount_minor ?? 0,
+              }),
+            })
+          }}
+        </p>
+      </UiCard>
       <UiCard
         v-if="balance"
         class="mt-4"
@@ -101,6 +121,7 @@ const columns = computed(() => [
         >
           <UiInput
             v-model="amount"
+            :aria-label="$t('affAdmin.amount')"
             inputmode="decimal"
             :placeholder="balance ? f.money(balance.available) : '—'"
           >
@@ -112,7 +133,12 @@ const columns = computed(() => [
             type="submit"
             variant="primary"
             :loading="withdraw.isPending.value"
-            :disabled="!minor || minor > balance.available.amount_minor || withdraw.uncertain.value"
+            :disabled="
+              !minor ||
+              minor > balance.available.amount_minor ||
+              minor < (a.min_withdraw.find((m) => m.currency === balance?.currency)?.amount_minor ?? 0) ||
+              withdraw.uncertain.value
+            "
             >{{ $t('affiliate.withdraw') }}</UiButton
           >
         </form>
@@ -122,7 +148,13 @@ const columns = computed(() => [
       </UiCard>
       <h2 class="mt-8 mb-3 text-[15px] font-semibold">{{ $t('affiliate.referrals') }}</h2>
       <div class="rounded-lg border border-line bg-surface shadow-xs">
+        <UiErrorState
+          v-if="referrals.isError.value"
+          :error="referrals.error.value"
+          @retry="referrals.refetch()"
+        />
         <UiTable
+          v-else
           :columns="columns"
           :rows="referrals.items.value"
           :row-key="(r) => r.id"
