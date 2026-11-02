@@ -1,6 +1,10 @@
 import type en from './en-private'
 export default {
   serverModules: {
+    manualInfo: '人工开通信息',
+    manualInfoHint: '填写交付给客户的主机名和地址，服务就绪后再确认开通。',
+    addressesHint: '每行一个地址，最多 16 个。',
+    invalidManualInfo: '请检查主机名和 IP 地址。',
     module: '服务器模块',
     connection: '接口',
     manual: '人工开通',

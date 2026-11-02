@@ -5,7 +5,7 @@ import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import type { z } from 'zod'
 import { api } from '@/contract/admin-endpoints'
-import type { AdminServiceAction } from '@/contract/admin'
+import { ManualServiceInfo, type AdminServiceAction } from '@/contract/admin'
 import { useApiMutation, useApiQuery } from '@/shared/api/query'
 import { useErrorText } from '@/shared/composables/errors'
 import { useFormat } from '@/shared/composables/format'
@@ -25,6 +25,7 @@ import UiSkeleton from '@/shared/ui/UiSkeleton.vue'
 import UiStatus from '@/shared/ui/UiStatus.vue'
 import UiSwitch from '@/shared/ui/UiSwitch.vue'
 import UiTime from '@/shared/ui/UiTime.vue'
+import UiTextarea from '@/shared/ui/UiTextarea.vue'
 import ReasonDialog from '../components/ReasonDialog.vue'
 
 type Action = z.infer<typeof AdminServiceAction>['action']
@@ -47,11 +48,15 @@ watchEffect(
       s.value?.status === 'provisioning'),
 )
 
+const manual = reactive({ hostname: '', ipv4: '', ipv6: '' })
 const edit = reactive({ next_due_at: '', auto_renew: false, override: '' })
 watch(
   s,
   (v) => {
     if (!v) return
+    manual.hostname = v.hostname ?? ''
+    manual.ipv4 = v.ipv4.join('\n')
+    manual.ipv6 = v.ipv6.join('\n')
     edit.next_due_at = v.next_due_at ? v.next_due_at.slice(0, 10) : ''
     edit.auto_renew = v.auto_renew
     edit.override = v.price_override
@@ -67,6 +72,20 @@ const update = useApiMutation(api.admin.updateService, {
   invalidates: [api.admin.service, api.admin.services],
   onSuccess: () => toast.success(t('common.saved')),
 })
+function saveManual() {
+  if (!s.value || s.value.module_id) return
+  const addresses = (value: string) => value.split(/\s+/).filter(Boolean)
+  const info = ManualServiceInfo.safeParse({
+    hostname: manual.hostname.trim(),
+    ipv4: addresses(manual.ipv4),
+    ipv6: addresses(manual.ipv6),
+  })
+  if (!info.success) return toast.error(t('serverModules.invalidManualInfo'))
+  update.mutate(
+    { params: { id: id.value }, body: { revision: s.value.revision, manual_info: info.data } },
+    { onError: fail },
+  )
+}
 function save() {
   if (!s.value) return
   const dec = s.value.recurring.decimal_places
@@ -149,7 +168,11 @@ const powerItems = computed<MenuItem[]>(() => [
         <template #actions>
           <template v-if="session.can('services.write')">
             <UiButton
-              v-if="s.status === 'pending' || s.status === 'failed'"
+              v-if="
+                s.status === 'pending' ||
+                s.status === 'failed' ||
+                (!s.module_id && s.status === 'provisioning')
+              "
               variant="primary"
               :loading="action.isPending.value"
               @click="ask('provision')"
@@ -168,7 +191,7 @@ const powerItems = computed<MenuItem[]>(() => [
             >
           </template>
           <UiDropdown
-            v-if="session.can('services.power') && s.status === 'active'"
+            v-if="session.can('services.power') && s.status === 'active' && s.capabilities.power"
             :items="powerItems"
             width="w-48"
           >
@@ -232,6 +255,33 @@ const powerItems = computed<MenuItem[]>(() => [
                 </dd>
               </div>
             </dl>
+          </UiCard>
+          <UiCard
+            v-if="
+              !s.module_id && session.can('services.write') && !['terminated', 'cancelled'].includes(s.status)
+            "
+            :title="$t('serverModules.manualInfo')"
+          >
+            <form class="flex flex-col gap-4" @submit.prevent="saveManual">
+              <p class="text-sm text-muted">{{ $t('serverModules.manualInfoHint') }}</p>
+              <UiField :label="$t('configure.hostname')"
+                ><template #default="{ id: fid }"
+                  ><UiInput :id="fid" v-model="manual.hostname" :maxlength="253" /></template
+              ></UiField>
+              <div class="grid gap-4 sm:grid-cols-2">
+                <UiField label="IPv4" :hint="$t('serverModules.addressesHint')"
+                  ><template #default="{ id: fid }"
+                    ><UiTextarea :id="fid" v-model="manual.ipv4" :rows="3" /></template
+                ></UiField>
+                <UiField label="IPv6" :hint="$t('serverModules.addressesHint')"
+                  ><template #default="{ id: fid }"
+                    ><UiTextarea :id="fid" v-model="manual.ipv6" :rows="3" /></template
+                ></UiField>
+              </div>
+              <UiButton type="submit" variant="primary" :loading="update.isPending.value">{{
+                $t('common.save')
+              }}</UiButton>
+            </form>
           </UiCard>
           <UiCard :title="$t('service.tab.activity')" :padded="false">
             <p v-if="!s.tasks.length" class="px-5 py-8 text-center text-[13px] text-muted">

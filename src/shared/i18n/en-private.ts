@@ -1,5 +1,10 @@
 export default {
   serverModules: {
+    manualInfo: 'Manual delivery details',
+    manualInfoHint:
+      'Save the hostname and addresses provided to the customer, then confirm provisioning when the service is ready.',
+    addressesHint: 'One address per line, up to 16.',
+    invalidManualInfo: 'Check the hostname and IP addresses.',
     module: 'Server module',
     connection: 'Connection',
     manual: 'Manual provisioning',

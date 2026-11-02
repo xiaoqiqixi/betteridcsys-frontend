@@ -202,7 +202,16 @@ export const AdminService = Service.extend({
   revision: Revision,
 }).meta({ id: 'AdminService' })
 export type AdminService = z.infer<typeof AdminService>
+export const ManualServiceInfo = z
+  .object({
+    hostname: z.string().max(253),
+    ipv4: z.array(z.ipv4()).max(16),
+    ipv6: z.array(z.ipv6()).max(16),
+  })
+  .meta({ id: 'ManualServiceInfo' })
 export const AdminServicePatch = z.object({
+  /** Staff-supplied delivery information; only services without a module accept it. */
+  manual_info: ManualServiceInfo.optional(),
   revision: Revision,
   label: z.string().max(80).optional(),
   next_due_at: Timestamp.optional(),

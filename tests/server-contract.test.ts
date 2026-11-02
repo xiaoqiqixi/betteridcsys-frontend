@@ -1,8 +1,17 @@
 import { describe, expect, it } from 'vitest'
+import { ManualServiceInfo } from '@/contract/admin'
 import { api } from '@/contract/admin-endpoints'
 import { ModuleSchema, ProductModule, ServerConnectionPatch } from '@/contract/server'
 
 describe('server module contract', () => {
+  it('validates staff delivery addresses for manual services', () => {
+    expect(
+      ManualServiceInfo.safeParse({ hostname: 'service.example', ipv4: ['192.0.2.1'], ipv6: ['2001:db8::1'] })
+        .success,
+    ).toBe(true)
+    expect(ManualServiceInfo.safeParse({ hostname: '', ipv4: ['not-an-ip'], ipv6: [] }).success).toBe(false)
+    expect(ManualServiceInfo.safeParse({ hostname: '', ipv4: [], ipv6: ['192.0.2.1'] }).success).toBe(false)
+  })
   it('accepts flat module fields and rejects unsupported nested objects', () => {
     expect(
       ModuleSchema.safeParse({
