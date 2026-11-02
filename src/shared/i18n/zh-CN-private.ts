@@ -1,5 +1,7 @@
 import type en from './en-private'
 export default {
+  serverModules: { module: '服务器模块', connection: '接口', manual: '人工开通' },
+
   portal: {
     greeting: {
       morning: '早上好，{name}',
@@ -578,7 +580,7 @@ export default {
     },
     integration: {
       subtitle: '云主控、支付插件与邮件发送。',
-      cloud: '云主控',
+      cloud: '服务器模块',
       payments: '支付',
       email: '邮件',
       check: '检测',

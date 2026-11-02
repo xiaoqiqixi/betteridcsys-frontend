@@ -1,11 +1,15 @@
 import { z } from 'zod'
+import { ModuleSchema } from './server'
 import { BillingCycle, CurrencyCode, Id, LocalizedText, MinorAmount } from './common'
 
 /* ---------------------------------------------------------------- products */
 
 export const ProductKind = z
   .enum(['cloud_server', 'dedicated_server', 'generic'])
-  .meta({ id: 'ProductKind', description: 'cloud_server is provisioned through a cloud controller.' })
+  .meta({
+    id: 'ProductKind',
+    description: 'Display category; provisioning is determined by the product module binding.',
+  })
 
 export const ProductSpecs = z
   .object({
@@ -43,7 +47,7 @@ export const OptionChoice = z
   .meta({ id: 'OptionChoice' })
 
 /**
- * Configurable option (配置项). `os_image` choices are resolved from the cloud image catalog;
+ * Configurable option (配置项). `os_image` choices are resolved from the module image catalog;
  * `quantity` options multiply the unit price.
  */
 export const ProductOption = z
@@ -98,6 +102,7 @@ export const Product = z
     prices: z.array(PricePoint),
     options: z.array(ProductOption),
     os_images: z.array(OsImage),
+    order_schema: ModuleSchema.nullable(),
     /** null = unlimited. */
     stock: z.int().min(0).nullable(),
     available: z.boolean(),

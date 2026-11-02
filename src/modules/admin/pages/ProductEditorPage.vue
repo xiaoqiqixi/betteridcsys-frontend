@@ -39,7 +39,8 @@ const product = useApiQuery(api.admin.product, () =>
 const taxonomy = useApiQuery(api.admin.taxonomy)
 const currencies = useApiQuery(api.site.currencies)
 const images = useApiQuery(api.admin.osImages)
-const controllers = useApiQuery(api.admin.controllers, () => (session.can('integrations.write') ? {} : null))
+const modules = useApiQuery(api.admin.modules, () => (session.can('integrations.write') ? {} : null))
+const connections = useApiQuery(api.admin.connections, () => (session.can('integrations.write') ? {} : null))
 const readOnly = computed(() => !session.can('products.write'))
 
 const blank = (): ProductUpsert => ({
@@ -63,8 +64,7 @@ const blank = (): ProductUpsert => ({
   os_image_ids: [],
   stock: null,
   visibility: 'hidden',
-  controller_id: null,
-  remote_product_id: null,
+  module: null,
   sort_order: 100,
 })
 const form = reactive<ProductUpsert>(blank())
@@ -86,8 +86,13 @@ watch(
       os_image_ids: p.os_images.map((i) => i.id),
       stock: p.stock,
       visibility: p.visibility,
-      controller_id: p.controller_id,
-      remote_product_id: p.remote_product_id,
+      module: p.module
+        ? {
+            module_id: p.module.module_id,
+            connection_id: p.module.connection_id,
+            config: { ...p.module.config },
+          }
+        : null,
       sort_order: p.sort_order,
     })
   },
@@ -109,10 +114,6 @@ const stockUnlimited = computed({ get: () => form.stock === null, set: (v) => (f
 const trafficUnmetered = computed({
   get: () => form.specs.traffic_gb === null,
   set: (v) => (form.specs.traffic_gb = v ? null : 1000),
-})
-const provisioning = computed({
-  get: () => (form.remote_product_id ? 'preset' : 'custom'),
-  set: (v: string) => (form.remote_product_id = v === 'preset' ? form.remote_product_id || '' : null),
 })
 const BADGES = ['new', 'hot', 'limited', 'best_value'] as const
 function toggleBadge(b: (typeof BADGES)[number], on: boolean) {
@@ -396,37 +397,34 @@ const allCurrencies = computed(() => currencies.data.value?.currencies ?? [])
           </div>
         </UiCard>
 
-        <UiCard v-if="form.kind === 'cloud_server'" :title="$t('admin.product.provisioning')">
+        <UiCard :title="$t('admin.product.provisioning')">
           <div class="flex flex-col gap-4">
-            <UiField :label="$t('admin.service.controller')">
+            <UiField :label="$t('serverModules.module')">
               <template #default="{ id }"
                 ><UiSelect
                   :id="id"
-                  :model-value="form.controller_id ?? ''"
-                  :options="
-                    (controllers.data.value ?? []).map((c) => ({
-                      value: c.id,
-                      label: c.name,
-                      hint: c.endpoint,
-                    }))
+                  :model-value="form.module?.module_id ?? ''"
+                  :options="[
+                    { value: '', label: $t('serverModules.manual') },
+                    ...(modules.data.value ?? []).map((m) => ({ value: m.id, label: f.text(m.name) })),
+                  ]"
+                  @update:model-value="
+                    (v) => (form.module = v ? { module_id: String(v), connection_id: '', config: {} } : null)
                   "
-                  @update:model-value="(v) => (form.controller_id = (v as string) || null)"
               /></template>
             </UiField>
-            <UiSelect
-              v-model="provisioning"
-              :options="[
-                { value: 'preset', label: $t('admin.product.preset') },
-                { value: 'custom', label: $t('admin.product.custom') },
-              ]"
-            />
-            <UiField
-              v-if="provisioning === 'preset'"
-              :label="$t('admin.product.remoteId')"
-              :hint="$t('admin.product.remoteIdHint')"
-              ><template #default="{ id }"
-                ><UiInput :id="id" v-model="form.remote_product_id" mono /></template
-            ></UiField>
+            <UiField v-if="form.module" :label="$t('serverModules.connection')" required>
+              <template #default="{ id }"
+                ><UiSelect
+                  :id="id"
+                  v-model="form.module.connection_id"
+                  :options="
+                    (connections.data.value ?? [])
+                      .filter((c) => c.module_id === form.module?.module_id)
+                      .map((c) => ({ value: c.id, label: c.name }))
+                  "
+              /></template>
+            </UiField>
           </div>
         </UiCard>
 

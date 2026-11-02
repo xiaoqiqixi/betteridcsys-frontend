@@ -214,8 +214,8 @@ const powerItems = computed<MenuItem[]>(() => [
                 </dd>
               </div>
               <div>
-                <dt class="text-xs text-muted">{{ $t('admin.service.controller') }}</dt>
-                <dd class="mt-1 font-mono text-[13px]">{{ s.controller_id ?? '—' }}</dd>
+                <dt class="text-xs text-muted">{{ $t('serverModules.connection') }}</dt>
+                <dd class="mt-1 font-mono text-[13px]">{{ s.connection_id ?? '—' }}</dd>
               </div>
               <div>
                 <dt class="text-xs text-muted">{{ $t('admin.service.resource') }}</dt>

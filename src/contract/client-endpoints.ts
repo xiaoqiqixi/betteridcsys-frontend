@@ -306,6 +306,17 @@ const billing = {
 }
 
 const services = {
+  action: endpoint({
+    id: 'runServiceAction',
+    method: 'POST',
+    path: '/services/{id}/actions/{action_id}',
+    access: 'client',
+    tag: 'Services',
+    summary: 'Run a module custom action',
+    body: C.ServerActionRequest,
+    response: C.ServiceTask,
+    idempotent: true,
+  }),
   list: endpoint({
     id: 'listServices',
     method: 'GET',
@@ -374,7 +385,7 @@ const services = {
     path: '/services/{id}/console',
     access: 'client',
     tag: 'Services',
-    summary: 'One-time console ticket (501 until the controller supports it)',
+    summary: 'One-time console ticket when supported by the module',
     body: Empty,
     response: C.ConsoleTicket,
   }),

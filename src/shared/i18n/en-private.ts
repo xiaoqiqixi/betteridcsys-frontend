@@ -1,4 +1,10 @@
 export default {
+  serverModules: {
+    module: 'Server module',
+    connection: 'Connection',
+    manual: 'Manual provisioning',
+  },
+
   portal: {
     greeting: {
       morning: 'Good morning, {name}',
@@ -586,7 +592,7 @@ export default {
     },
     integration: {
       subtitle: 'Cloud controllers, payment plugins and email delivery.',
-      cloud: 'Cloud',
+      cloud: 'Server modules',
       payments: 'Payments',
       email: 'Email',
       check: 'Check',

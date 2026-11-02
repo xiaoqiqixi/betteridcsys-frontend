@@ -30,8 +30,8 @@ const errors = useErrorText()
 const fail = (e: unknown) => toast.error(errors.text(e))
 const tab = ref<'cloud' | 'payments' | 'email'>('cloud')
 
-const controllers = useApiQuery(api.admin.controllers, () => (tab.value === 'cloud' ? {} : null))
-const check = useApiMutation(api.admin.checkController, { invalidates: [api.admin.controllers] })
+const controllers = useApiQuery(api.admin.connections, () => (tab.value === 'cloud' ? {} : null))
+const check = useApiMutation(api.admin.testConnection, { invalidates: [api.admin.connections] })
 
 const gateways = useApiQuery(api.admin.gateways, () => (tab.value === 'payments' ? {} : null))
 const patchGateway = useApiMutation(api.admin.updateGateway, {
@@ -121,15 +121,10 @@ function openTpl(tpl: EmailTemplate) {
               <p class="flex items-center gap-2 font-medium">
                 {{ c.name }}<UiStatus kind="controller" :value="c.status" />
               </p>
-              <p class="truncate font-mono text-xs text-muted">{{ c.id }} · {{ c.endpoint }}</p>
+              <p class="truncate font-mono text-xs text-muted">{{ c.id }} · {{ c.module_id }}</p>
               <p class="mt-1 text-xs text-faint">
                 {{ $t('admin.integration.lastChecked') }}
                 <UiTime :value="c.last_checked_at" mode="relative" /> ·
-                {{
-                  c.credential_configured
-                    ? $t('admin.integration.credentialOk')
-                    : $t('admin.integration.credentialMissing')
-                }}
               </p>
             </div>
             <UiButton

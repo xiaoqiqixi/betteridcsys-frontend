@@ -1,4 +1,6 @@
 import { z } from 'zod'
+import { AdminProductModule, ProductModule, ModuleId } from './server'
+export * from './server'
 import {
   BillingCycle,
   Country,
@@ -192,7 +194,8 @@ export type AdminServiceSummary = z.infer<typeof AdminServiceSummary>
 export const AdminService = Service.extend({
   client_id: Id,
   client_email: Email,
-  controller_id: z.string().nullable(),
+  module_id: ModuleId.nullable(),
+  connection_id: Id.nullable(),
   resource_id: z.string().nullable(),
   provisioning_job_id: Id.nullable(),
   price_override: Money.nullable(),
@@ -233,9 +236,7 @@ export const ServiceQuery = z.object({
 
 export const AdminProduct = Product.extend({
   visibility: z.enum(['public', 'hidden', 'retired']),
-  controller_id: z.string().nullable(),
-  /** Remote preset on the cloud controller, or null for custom resources. */
-  remote_product_id: z.string().nullable(),
+  module: AdminProductModule.nullable(),
   active_services: z.int(),
   revision: Revision,
 }).meta({ id: 'AdminProduct' })
@@ -255,15 +256,14 @@ export const ProductUpsert = z.object({
   os_image_ids: z.array(Id),
   stock: z.int().min(0).nullable(),
   visibility: AdminProduct.shape.visibility,
-  controller_id: z.string().nullable(),
-  remote_product_id: z.string().nullable(),
+  module: ProductModule.nullable(),
   sort_order: z.int(),
 })
 export type ProductUpsert = z.infer<typeof ProductUpsert>
 
 export const AdminOsImage = OsImage.extend({
   enabled: z.boolean(),
-  controller_id: z.string(),
+  connection_id: Id,
   remote_image_id: z.string(),
   sha256: z.string(),
 }).meta({ id: 'AdminOsImage' })
@@ -357,20 +357,6 @@ export const AutomationRun = z
 export type AutomationRun = z.infer<typeof AutomationRun>
 
 /* ------------------------------------------------------------ integrations */
-
-export const CloudController = z
-  .object({
-    id: z.string().regex(/^[a-z0-9][a-z0-9-]{0,31}$/),
-    name: z.string().max(80),
-    endpoint: z.string().max(400),
-    enabled: z.boolean(),
-    status: z.enum(['healthy', 'degraded', 'unreachable', 'unconfigured']),
-    last_checked_at: Timestamp.nullable(),
-    /** Token and CA are host-managed files, never accepted or returned by the web API. */
-    credential_configured: z.boolean(),
-  })
-  .meta({ id: 'CloudController' })
-export type CloudController = z.infer<typeof CloudController>
 
 /** One installed payment plugin slot. Credentials stay host-managed; the web UI never sees them. */
 export const GatewayStatus = z

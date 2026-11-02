@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { ModuleFields } from './server'
 import { BillingCycle, CurrencyCode, Id, LocalizedText, MinorAmount, Money, Timestamp } from './common'
 
 /* -------------------------------------------------------------- cart/quote */
@@ -6,6 +7,8 @@ import { BillingCycle, CurrencyCode, Id, LocalizedText, MinorAmount, Money, Time
 export const CartItemInput = z
   .object({
     product_id: Id,
+    /** Validated against product.order_schema. writeOnly fields are never persisted or echoed. */
+    module_fields: ModuleFields.optional(),
     cycle: BillingCycle,
     quantity: z.int().min(1).max(20),
     options: z.record(z.string(), z.union([z.string(), z.int()])),

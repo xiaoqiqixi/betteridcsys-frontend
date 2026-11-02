@@ -285,7 +285,7 @@ const canWrite = computed(() => session.can('products.write'))
           <div class="min-w-0 flex-1">
             <p class="text-sm font-medium">{{ img.name }} {{ img.version }}</p>
             <p class="truncate font-mono text-xs text-muted">
-              {{ img.controller_id }} · {{ img.remote_image_id }} · sha256:{{ img.sha256.slice(0, 12) }}
+              {{ img.connection_id }} · {{ img.remote_image_id }} · sha256:{{ img.sha256.slice(0, 12) }}
             </p>
           </div>
           <span class="text-xs text-muted">≥ {{ img.min_disk_gb }} GB</span>

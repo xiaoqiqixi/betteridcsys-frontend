@@ -1,4 +1,6 @@
 import { z } from 'zod'
+import { ServerCustomAction } from './server'
+export { ServerActionRequest } from './server'
 import { BillingCycle, Id, MinorAmount, Money, Revision, TaskStatus, Timestamp } from './common'
 
 import { ProductKind, ProductSpecs, OsImage } from './catalog'
@@ -212,6 +214,8 @@ export const ServiceTask = z
     id: Id,
     action: z.enum([
       'provision',
+      'action',
+      'renew',
       'start',
       'stop',
       'reboot',
@@ -253,6 +257,7 @@ export type ServiceCapabilities = z.infer<typeof ServiceCapabilities>
 
 export const Service = ServiceSummary.extend({
   capabilities: ServiceCapabilities,
+  custom_actions: z.array(ServerCustomAction),
   rescue: z.object({ active: z.boolean(), since: Timestamp }).nullable(),
   specs: ProductSpecs,
   os_image: OsImage.nullable(),
