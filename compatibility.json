@@ -3,7 +3,7 @@
   "core_version": "0.6.0",
   "api_contract": "/api/v1",
   "backend_repository": "xiaoqiqixi/betteridcsys-backend",
-  "source_commit": "e5161a0f81729fea4e5cd1f79cb08fecf5ee5c0e",
+  "source_commit": "dc44b34a1507abdbe34ba9f575c795b5a5179c07",
   "defaults": {
     "locale": "zh-CN",
     "currency": "CNY"

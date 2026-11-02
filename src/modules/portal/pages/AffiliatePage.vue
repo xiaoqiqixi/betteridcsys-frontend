@@ -116,11 +116,12 @@ const columns = computed(() => [
         :description="$t('affiliate.withdrawHint')"
       >
         <form
-          class="flex max-w-md gap-2"
+          class="flex max-w-md flex-col gap-2 sm:flex-row"
           @submit.prevent="minor && withdraw.mutate({ body: { amount_minor: minor } })"
         >
           <UiInput
             v-model="amount"
+            class="min-w-0"
             :aria-label="$t('affAdmin.amount')"
             inputmode="decimal"
             :placeholder="balance ? f.money(balance.available) : '—'"
