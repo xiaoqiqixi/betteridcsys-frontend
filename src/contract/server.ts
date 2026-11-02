@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { Id, LocalizedText, Revision, Timestamp } from './common'
 
-export const ModuleId = z.string().regex(/^server\.[a-z0-9][a-z0-9._-]{0,55}$/)
+export const ModuleId = z.string().regex(/^server\.[a-z][a-z0-9-]{0,47}$/)
 export const SchemaScalar = z.union([z.string().max(4000), z.number().finite(), z.boolean()])
 export const ModuleFields = z.record(
   z.string().regex(/^[a-zA-Z][a-zA-Z0-9_]{0,63}$/),

@@ -5839,7 +5839,7 @@
                         "properties": {
                           "module_id": {
                             "type": "string",
-                            "pattern": "^server\\.[a-z0-9][a-z0-9._-]{0,55}$"
+                            "pattern": "^server\\.[a-z][a-z0-9-]{0,47}$"
                           },
                           "connection_id": {
                             "$ref": "#/components/schemas/Id"
@@ -6151,7 +6151,7 @@
                         "properties": {
                           "module_id": {
                             "type": "string",
-                            "pattern": "^server\\.[a-z0-9][a-z0-9._-]{0,55}$"
+                            "pattern": "^server\\.[a-z][a-z0-9-]{0,47}$"
                           },
                           "connection_id": {
                             "$ref": "#/components/schemas/Id"
@@ -13589,7 +13589,7 @@
                 "properties": {
                   "module_id": {
                     "type": "string",
-                    "pattern": "^server\\.[a-z0-9][a-z0-9._-]{0,55}$"
+                    "pattern": "^server\\.[a-z][a-z0-9-]{0,47}$"
                   },
                   "connection_id": {
                     "$ref": "#/components/schemas/Id"
@@ -13946,7 +13946,7 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^server\\.[a-z0-9][a-z0-9._-]{0,55}$"
+                "pattern": "^server\\.[a-z][a-z0-9-]{0,47}$"
               },
               {
                 "type": "null"
@@ -18215,7 +18215,7 @@
           },
           "module_id": {
             "type": "string",
-            "pattern": "^server\\.[a-z0-9][a-z0-9._-]{0,55}$"
+            "pattern": "^server\\.[a-z][a-z0-9-]{0,47}$"
           },
           "name": {
             "type": "string",
@@ -18305,7 +18305,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^server\\.[a-z0-9][a-z0-9._-]{0,55}$"
+            "pattern": "^server\\.[a-z][a-z0-9-]{0,47}$"
           },
           "name": {
             "$ref": "#/components/schemas/LocalizedText"

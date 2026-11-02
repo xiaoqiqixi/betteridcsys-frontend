@@ -1,7 +1,7 @@
 -- Only apply to the disposable fe2_test database, after the real migrations.
-INSERT INTO os_images(id,family,name,version,min_disk_gb,enabled,controller_id,remote_image_id,sha256)
-VALUES ('fe2-debian','debian','Debian','12',10,TRUE,'fe2-offline','debian-12',REPEAT('a',64)),
-       ('fe2-ubuntu','ubuntu','Ubuntu','24.04',15,TRUE,'fe2-offline','ubuntu-24.04',REPEAT('b',64));
+INSERT INTO os_images(id,family,name,version,min_disk_gb,enabled,controller_id,connection_id,remote_image_id,sha256)
+VALUES ('fe2-debian','debian','Debian','12',10,TRUE,'','fe2-offline','debian-12',REPEAT('a',64)),
+       ('fe2-ubuntu','ubuntu','Ubuntu','24.04',15,TRUE,'','fe2-offline','ubuntu-24.04',REPEAT('b',64));
 INSERT INTO staff_roles(id,name,description,permissions,builtin,revision)
 VALUES ('fe2-reader','Read only','E2E least privilege fixture',JSON_ARRAY('overview.read','clients.read','orders.read','services.read','invoices.read','products.read','tickets.read'),FALSE,1);
 UPDATE staff_members SET role_id='fe2-reader' WHERE user_id=(SELECT id FROM users WHERE email='reader@fe2.test');
