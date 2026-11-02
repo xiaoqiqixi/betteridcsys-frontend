@@ -7,7 +7,9 @@ permissions:
   contents: read
 concurrency:
   group: checks-${{ github.ref }}
-  cancel-in-progress: true
+  # Keep complete main evidence while maintainers push concurrently. Cancelled
+  # runs cannot supply a verified frontend artifact for backend pairing.
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
   e2e:
     name: Chromium against pinned backend and MySQL 8.4
