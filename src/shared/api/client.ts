@@ -3,6 +3,7 @@ import { resolvePath } from '@/contract/endpoint'
 import { ApiError, SESSION_ENDING_CODES } from './errors'
 
 export const API_BASE = '/api/v1'
+const API_HEADERS = { Accept: 'application/json', 'X-Aster-API-Version': '0.6' }
 const TIMEOUT_MS = 15_000
 const REQUEST_ID = /^[A-Za-z0-9_-]{8,128}$/
 
@@ -82,7 +83,7 @@ export class ApiClient {
       const res = await this.transport({
         method: 'GET',
         url: `${API_BASE}/session`,
-        headers: { Accept: 'application/json' },
+        headers: { ...API_HEADERS },
         signal,
       })
       const body = (await res.json()) as { data?: { csrf_token?: unknown } }
@@ -108,7 +109,7 @@ export class ApiClient {
     const onAbort = () => controller.abort(input.signal?.reason)
     input.signal?.addEventListener('abort', onAbort, { once: true })
 
-    const headers: Record<string, string> = { Accept: 'application/json' }
+    const headers: Record<string, string> = { ...API_HEADERS }
     let body: string | undefined
     try {
       if (write) {
