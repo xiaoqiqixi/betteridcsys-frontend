@@ -62,7 +62,7 @@ for (const width of [375, 768, 1280, 1440]) {
         expect(knownGaps.source_commit).toBe(compatibility.source_commit)
         const findings: unknown[] = []
         const regressions: string[] = []
-        const known404 = new Set(['/api/v1/admin/integrations/controllers'])
+        const known404 = new Set<string>()
         for (const actor of ['guest', 'client', 'owner'] as const) {
           const context = await browser.newContext({
             ignoreHTTPSErrors: true,
