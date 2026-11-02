@@ -24,6 +24,7 @@ import UiSkeleton from '@/shared/ui/UiSkeleton.vue'
 import UiSwitch from '@/shared/ui/UiSwitch.vue'
 import LocalizedInput from '../components/LocalizedInput.vue'
 import PriceMatrix from '../components/PriceMatrix.vue'
+import ProductProvisioning from '../components/ProductProvisioning.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -39,8 +40,7 @@ const product = useApiQuery(api.admin.product, () =>
 const taxonomy = useApiQuery(api.admin.taxonomy)
 const currencies = useApiQuery(api.site.currencies)
 const images = useApiQuery(api.admin.osImages)
-const modules = useApiQuery(api.admin.modules, () => (session.can('integrations.write') ? {} : null))
-const connections = useApiQuery(api.admin.connections, () => (session.can('integrations.write') ? {} : null))
+const provisioning = ref<InstanceType<typeof ProductProvisioning>>()
 const readOnly = computed(() => !session.can('products.write'))
 
 const blank = (): ProductUpsert => ({
@@ -147,6 +147,7 @@ const create = useApiMutation(api.admin.createProduct, opts)
 const update = useApiMutation(api.admin.updateProduct, opts)
 const pending = computed(() => create.isPending.value || update.isPending.value)
 function save() {
+  if (provisioning.value && !provisioning.value.validate()) return
   saveError.value = null
   const body = JSON.parse(JSON.stringify(form)) as ProductUpsert
   const onError = (e: unknown) =>
@@ -397,36 +398,7 @@ const allCurrencies = computed(() => currencies.data.value?.currencies ?? [])
           </div>
         </UiCard>
 
-        <UiCard :title="$t('admin.product.provisioning')">
-          <div class="flex flex-col gap-4">
-            <UiField :label="$t('serverModules.module')">
-              <template #default="{ id }"
-                ><UiSelect
-                  :id="id"
-                  :model-value="form.module?.module_id ?? ''"
-                  :options="[
-                    { value: '', label: $t('serverModules.manual') },
-                    ...(modules.data.value ?? []).map((m) => ({ value: m.id, label: f.text(m.name) })),
-                  ]"
-                  @update:model-value="
-                    (v) => (form.module = v ? { module_id: String(v), connection_id: '', config: {} } : null)
-                  "
-              /></template>
-            </UiField>
-            <UiField v-if="form.module" :label="$t('serverModules.connection')" required>
-              <template #default="{ id }"
-                ><UiSelect
-                  :id="id"
-                  v-model="form.module.connection_id"
-                  :options="
-                    (connections.data.value ?? [])
-                      .filter((c) => c.module_id === form.module?.module_id)
-                      .map((c) => ({ value: c.id, label: c.name }))
-                  "
-              /></template>
-            </UiField>
-          </div>
-        </UiCard>
+        <ProductProvisioning ref="provisioning" v-model="form.module" />
 
         <UiCard
           v-if="form.kind === 'cloud_server'"

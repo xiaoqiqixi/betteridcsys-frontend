@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Cloud, CreditCard, Mail, RefreshCw } from '@lucide/vue'
+import { CreditCard, Mail } from '@lucide/vue'
 import { computed, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { api } from '@/contract/admin-endpoints'
@@ -20,7 +20,7 @@ import UiSelect from '@/shared/ui/UiSelect.vue'
 import UiSkeleton from '@/shared/ui/UiSkeleton.vue'
 import UiStatus from '@/shared/ui/UiStatus.vue'
 import UiSwitch from '@/shared/ui/UiSwitch.vue'
-import UiTime from '@/shared/ui/UiTime.vue'
+import ServerModulesPanel from '../components/ServerModulesPanel.vue'
 import LocalizedInput from '../components/LocalizedInput.vue'
 
 const { t } = useI18n()
@@ -29,9 +29,6 @@ const toast = useToast()
 const errors = useErrorText()
 const fail = (e: unknown) => toast.error(errors.text(e))
 const tab = ref<'cloud' | 'payments' | 'email'>('cloud')
-
-const controllers = useApiQuery(api.admin.connections, () => (tab.value === 'cloud' ? {} : null))
-const check = useApiMutation(api.admin.testConnection, { invalidates: [api.admin.connections] })
 
 const gateways = useApiQuery(api.admin.gateways, () => (tab.value === 'payments' ? {} : null))
 const patchGateway = useApiMutation(api.admin.updateGateway, {
@@ -104,42 +101,7 @@ function openTpl(tpl: EmailTemplate) {
       />
     </div>
 
-    <template v-if="tab === 'cloud'">
-      <UiErrorState
-        v-if="controllers.isError.value"
-        :error="controllers.error.value"
-        @retry="controllers.refetch()"
-      />
-      <UiSkeleton v-else-if="!controllers.data.value" :lines="4" />
-      <div v-else class="grid gap-4 md:grid-cols-2">
-        <UiCard v-for="c in controllers.data.value" :key="c.id">
-          <div class="flex items-start gap-3">
-            <span class="grid size-9 place-items-center rounded-lg bg-primary-soft text-primary"
-              ><Cloud class="size-4"
-            /></span>
-            <div class="min-w-0 flex-1">
-              <p class="flex items-center gap-2 font-medium">
-                {{ c.name }}<UiStatus kind="controller" :value="c.status" />
-              </p>
-              <p class="truncate font-mono text-xs text-muted">{{ c.id }} · {{ c.module_id }}</p>
-              <p class="mt-1 text-xs text-faint">
-                {{ $t('admin.integration.lastChecked') }}
-                <UiTime :value="c.last_checked_at" mode="relative" /> ·
-              </p>
-            </div>
-            <UiButton
-              size="sm"
-              :loading="check.isPending.value && check.variables.value?.params.id === c.id"
-              @click="check.mutate({ params: { id: c.id }, body: {} }, { onError: fail })"
-              ><RefreshCw class="size-3.5" />{{ $t('admin.integration.check') }}</UiButton
-            >
-          </div>
-        </UiCard>
-        <p class="rounded-lg border border-dashed border-line p-4 text-[13px] text-muted md:col-span-2">
-          {{ $t('admin.integration.controllerHint') }}
-        </p>
-      </div>
-    </template>
+    <ServerModulesPanel v-if="tab === 'cloud'" />
 
     <template v-else-if="tab === 'payments'">
       <UiErrorState v-if="gateways.isError.value" :error="gateways.error.value" @retry="gateways.refetch()" />

@@ -1,5 +1,18 @@
 import type en from './en'
 export default {
+  schemaForm: {
+    yes: '是',
+    no: '否',
+    orderFields: '服务配置',
+    errors: {
+      required: '请填写此项。',
+      type: '请输入符合类型的有效值。',
+      choice: '请选择列表中的值。',
+      range: '输入值超出允许范围。',
+      unknown: '配置包含此模块不支持的字段。',
+    },
+  },
+
   common: {
     back: '返回',
     cancel: '取消',

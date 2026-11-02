@@ -1,6 +1,23 @@
 import type en from './en-private'
 export default {
-  serverModules: { module: '服务器模块', connection: '接口', manual: '人工开通' },
+  serverModules: {
+    module: '服务器模块',
+    connection: '接口',
+    manual: '人工开通',
+    manualHint: '付款后由员工开通服务并填写服务信息。',
+    noConnections: '此模块暂无可用接口。',
+    noModules: '尚未安装服务器模块。',
+    connections: '接口',
+    connectionName: '接口名称',
+    capabilities: '支持的操作',
+    serviceCount: '{count} 个服务',
+    enableConnection: '启用 {name}',
+    test: '测试连接',
+    syncImages: '同步模板',
+    hostHint: '请在主机上安装服务器模块并配置接口，凭据仅保存在服务器上。',
+    dangerConfirm: '此操作可能修改或删除服务数据，是否继续？',
+    uncertain: '操作结果尚未确认，请先查看服务活动记录，再进行其他操作。',
+  },
 
   portal: {
     greeting: {

@@ -1,5 +1,18 @@
 /** Public catalog; private routes load the remaining groups on demand. */
 export default {
+  schemaForm: {
+    yes: 'Yes',
+    no: 'No',
+    orderFields: 'Service configuration',
+    errors: {
+      required: 'This field is required.',
+      type: 'Enter a valid value of the requested type.',
+      choice: 'Choose a listed value.',
+      range: 'The value is outside the allowed limits.',
+      unknown: 'The configuration contains a field this module does not support.',
+    },
+  },
+
   common: {
     back: 'Back',
     cancel: 'Cancel',

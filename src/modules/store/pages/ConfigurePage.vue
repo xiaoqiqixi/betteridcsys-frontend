@@ -19,6 +19,9 @@ import { computed, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 import { api, type BillingCycle } from '@/contract/client-endpoints'
+import type { ModuleFields } from '@/contract/server'
+import { schemaDefaults, splitModuleSecrets, validateModuleFields } from '@/shared/lib/module-schema'
+import SchemaForm from '@/shared/ui/SchemaForm.vue'
 import type { PricePoint } from '@/contract/commerce'
 import { useApiQuery } from '@/shared/api/query'
 import { useErrorText } from '@/shared/composables/errors'
@@ -56,6 +59,7 @@ const node = computed(() => site.taxonomy.data.value?.nodes.find((n) => n.id ===
 const points = computed(() => (p.value ? pricesFor(p.value, site.currency.value) : []))
 
 const form = reactive({
+  moduleFields: {} as ModuleFields,
   cycle: (route.query.cycle as BillingCycle) || 'monthly',
   quantity: 1,
   os: undefined as string | undefined,
@@ -84,6 +88,14 @@ watch(
   { immediate: true },
 )
 
+watch(
+  () => p.value?.id,
+  () => {
+    form.moduleFields = schemaDefaults(p.value?.order_schema)
+  },
+  { immediate: true },
+)
+
 const osOption = computed(() => p.value?.options.find((o) => o.kind === 'os_image'))
 const extraOptions = computed(() => p.value?.options.filter((o) => o.kind !== 'os_image') ?? [])
 const hostnameError = computed(() =>
@@ -98,6 +110,7 @@ const sshError = computed(() =>
 const valid = computed(
   () =>
     !!p.value &&
+    !Object.keys(validateModuleFields(p.value.order_schema, form.moduleFields)).length &&
     !hostnameError.value &&
     !passwordError.value &&
     !sshError.value &&
@@ -113,6 +126,7 @@ const item = computed(() => {
     cycle: form.cycle,
     quantity: form.quantity,
     options,
+    module_fields: form.moduleFields,
     ...(form.hostname ? { hostname: form.hostname } : {}),
     ...(form.auth === 'password' ? { root_password: form.password } : { ssh_key_ids: form.sshKeyIds }),
   }
@@ -158,7 +172,12 @@ async function copyPassword() {
 function addToCart(go: boolean) {
   if (!item.value || !valid.value) return
   const { root_password, ...line } = item.value as typeof item.value & { root_password?: string }
-  cart.add(line, root_password)
+  const { fields, secrets } = splitModuleSecrets(p.value?.order_schema, form.moduleFields)
+  cart.add(
+    { ...line, module_fields: fields, module_secret_keys: Object.keys(secrets) },
+    root_password,
+    secrets,
+  )
   if (go) void router.push('/checkout')
 }
 </script>
@@ -233,6 +252,14 @@ function addToCart(go: boolean) {
         <section v-if="p?.os_images.length" class="rounded-xl border border-line bg-surface p-5">
           <h2 class="text-[15px] font-semibold">{{ $t('configure.os') }}</h2>
           <div class="mt-4"><OsPicker v-model="form.os" :images="p.os_images" /></div>
+        </section>
+
+        <section
+          v-if="p?.order_schema && Object.keys(p.order_schema.properties).length"
+          class="rounded-xl border border-line bg-surface p-5"
+        >
+          <h2 class="mb-4 text-[15px] font-semibold">{{ $t('schemaForm.orderFields') }}</h2>
+          <SchemaForm v-model="form.moduleFields" :schema="p.order_schema" />
         </section>
 
         <section v-if="extraOptions.length" class="rounded-xl border border-line bg-surface p-5">

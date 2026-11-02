@@ -21,6 +21,8 @@ import { computed, ref, watchEffect } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import { api } from '@/contract/client-endpoints'
+import type { ServerCustomAction } from '@/contract/server'
+import ModuleActionDialog from '../components/service/ModuleActionDialog.vue'
 import type { ServiceTask } from '@/contract/commerce'
 import { useApiMutation, useApiQuery } from '@/shared/api/query'
 import { confirm } from '@/shared/composables/confirm'
@@ -92,6 +94,7 @@ const dialogs = ref({
   rename: false,
 })
 const label = ref('')
+const customAction = ref<ServerCustomAction | null>(null)
 
 const fail = (e: unknown) => toast.error(errors.text(e))
 const power = useApiMutation(api.services.power, { invalidates: [api.services.get, api.services.list] })
@@ -182,6 +185,15 @@ const more = computed<MenuItem[]>(() => {
       disabled: s.value.status !== 'active',
       onSelect: () => (dialogs.value.upgrade = true),
     })
+  for (const action of s.value.custom_actions)
+    items.push({
+      label: f.text(action.name),
+      danger: action.danger,
+      disabled: !operable.value || busy.value || s.value.tasks.some((task) => task.status === 'uncertain'),
+      onSelect: () => {
+        customAction.value = action
+      },
+    })
   if (!s.value.cancellation && (s.value.status === 'active' || s.value.status === 'suspended'))
     items.push(
       { separator: true },
@@ -204,6 +216,13 @@ const powerMenu = computed<MenuItem[]>(() => [
 
 <template>
   <div>
+    <ModuleActionDialog
+      v-if="customAction"
+      :key="id + customAction.id"
+      :service-id="id"
+      :action="customAction"
+      @close="customAction = null"
+    />
     <UiErrorState v-if="service.isError.value" :error="service.error.value" @retry="service.refetch()" />
     <div v-else-if="!s">
       <UiSkeleton :lines="2" height="h-7" class="mb-6 max-w-sm" /><UiSkeleton :lines="6" />

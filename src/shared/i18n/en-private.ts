@@ -3,6 +3,20 @@ export default {
     module: 'Server module',
     connection: 'Connection',
     manual: 'Manual provisioning',
+    manualHint: 'Staff activate this service and enter its details after payment.',
+    noConnections: 'No connections available for this module.',
+    noModules: 'No server modules installed.',
+    connections: 'Connections',
+    connectionName: 'Connection name',
+    capabilities: 'Capabilities',
+    serviceCount: '{count} services',
+    enableConnection: 'Enable {name}',
+    test: 'Test connection',
+    syncImages: 'Sync templates',
+    hostHint:
+      'Install a server module and configure each connection on the host. Credentials stay on the server.',
+    dangerConfirm: 'This action can change or delete service data. Continue?',
+    uncertain: 'The result is not confirmed. Check the service activity before taking another action.',
   },
 
   portal: {
@@ -591,7 +605,7 @@ export default {
       },
     },
     integration: {
-      subtitle: 'Cloud controllers, payment plugins and email delivery.',
+      subtitle: 'Server modules, payment plugins and email delivery.',
       cloud: 'Server modules',
       payments: 'Payments',
       email: 'Email',

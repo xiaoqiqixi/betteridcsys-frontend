@@ -49,7 +49,9 @@ const quoteBody = computed(() =>
 )
 const quote = useQuote(quoteBody)
 const needsCredentials = computed(() =>
-  cart.lines.filter((l) => !cart.hasPassword(l.key) && !l.ssh_key_ids?.length),
+  cart.lines.filter(
+    (l) => (!cart.hasPassword(l.key) && !l.ssh_key_ids?.length) || !cart.hasModuleSecrets(l.key),
+  ),
 )
 
 const place = useApiMutation(api.orders.create, {
