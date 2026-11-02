@@ -11,6 +11,7 @@ withDefaults(defineProps<{ title: string; side?: 'left' | 'right' }>(), { side: 
     <DialogPortal>
       <DialogOverlay class="fixed inset-0 z-50 bg-overlay data-[state=open]:animate-fade-in" />
       <DialogContent
+        :aria-describedby="undefined"
         :class="[
           'fixed inset-y-0 z-50 flex w-[min(88vw,380px)] flex-col border-line bg-elevated shadow-lg outline-none',
           side === 'left' ? 'left-0 border-r' : 'right-0 border-l',
