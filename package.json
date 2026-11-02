@@ -18,6 +18,9 @@
     "contract": "UPDATE_CONTRACT=1 vitest run tests/openapi.test.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "test:e2e": "playwright test",
+    "e2e:prepare": "node scripts/e2e/prepare.mjs",
+    "e2e:seed": "node scripts/e2e/seed.mjs",
     "check:initial-js": "node scripts/initial-js.mjs"
   },
   "dependencies": {

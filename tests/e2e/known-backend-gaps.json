@@ -1,0 +1,31 @@
+{
+  "source_commit": "7a393b6c17acc987d3e16080710862da7234b30c",
+  "operations": {
+    "getClientOverview": [
+      "{\"code\":\"invalid_type\",\"expected\":\"array\",\"message\":\"Invalid input: expected array, received undefined\",\"path\":[\"announcements\"]}",
+      "{\"code\":\"invalid_type\",\"expected\":\"array\",\"message\":\"Invalid input: expected array, received undefined\",\"path\":[\"invoices\"]}",
+      "{\"code\":\"invalid_type\",\"expected\":\"array\",\"message\":\"Invalid input: expected array, received undefined\",\"path\":[\"services\"]}",
+      "{\"code\":\"invalid_type\",\"expected\":\"object\",\"message\":\"Invalid input: expected object, received undefined\",\"path\":[\"amount_due\"]}",
+      "{\"code\":\"invalid_type\",\"expected\":\"object\",\"message\":\"Invalid input: expected object, received undefined\",\"path\":[\"counts\"]}",
+      "{\"code\":\"invalid_type\",\"expected\":\"object\",\"message\":\"Invalid input: expected object, received undefined\",\"path\":[\"credit\"]}"
+    ],
+    "adminOverview": [
+      "{\"code\":\"invalid_type\",\"expected\":\"array\",\"message\":\"Invalid input: expected array, received undefined\",\"path\":[\"attention\"]}",
+      "{\"code\":\"invalid_type\",\"expected\":\"array\",\"message\":\"Invalid input: expected array, received undefined\",\"path\":[\"revenue_series\"]}",
+      "{\"code\":\"invalid_type\",\"expected\":\"object\",\"message\":\"Invalid input: expected object, received undefined\",\"path\":[\"counts\"]}",
+      "{\"code\":\"invalid_type\",\"expected\":\"object\",\"message\":\"Invalid input: expected object, received undefined\",\"path\":[\"outstanding\"]}",
+      "{\"code\":\"invalid_type\",\"expected\":\"object\",\"message\":\"Invalid input: expected object, received undefined\",\"path\":[\"revenue_month\"]}",
+      "{\"code\":\"invalid_type\",\"expected\":\"object\",\"message\":\"Invalid input: expected object, received undefined\",\"path\":[\"revenue_prev_month\"]}",
+      "{\"code\":\"invalid_type\",\"expected\":\"object\",\"message\":\"Invalid input: expected object, received undefined\",\"path\":[\"revenue_today\"]}"
+    ],
+    "adminListAudit": [
+      "{\"code\":\"invalid_type\",\"expected\":\"string\",\"message\":\"Invalid input: expected string, received undefined\",\"path\":[\"items\",\"*\",\"at\"]}",
+      "{\"code\":\"invalid_type\",\"expected\":\"string\",\"message\":\"Invalid input: expected string, received undefined\",\"path\":[\"items\",\"*\",\"ip\"]}",
+      "{\"code\":\"invalid_type\",\"expected\":\"string\",\"message\":\"Invalid input: expected string, received undefined\",\"path\":[\"items\",\"*\",\"reason\"]}",
+      "{\"code\":\"invalid_type\",\"expected\":\"string\",\"message\":\"Invalid input: expected string, received undefined\",\"path\":[\"items\",\"*\",\"target_id\"]}",
+      "{\"code\":\"invalid_type\",\"expected\":\"string\",\"message\":\"Invalid input: expected string, received undefined\",\"path\":[\"items\",\"*\",\"target_type\"]}",
+      "{\"code\":\"invalid_type\",\"expected\":\"string\",\"message\":\"Invalid input: expected string, received undefined\",\"path\":[\"next_cursor\"]}",
+      "{\"code\":\"invalid_value\",\"message\":\"Invalid option: expected one of \\\"client\\\"|\\\"staff\\\"|\\\"system\\\"\",\"path\":[\"items\",\"*\",\"actor_type\"],\"values\":[\"client\",\"staff\",\"system\"]}"
+    ]
+  }
+}

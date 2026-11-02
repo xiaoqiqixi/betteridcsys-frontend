@@ -1,10 +1,18 @@
 import { describe, expect, it } from 'vitest'
 import type { RouteRecordRaw } from 'vue-router'
 import { routes } from '@/app/router/routes'
+import { pages } from './e2e/pages'
 
 const flat = (rs: RouteRecordRaw[]): RouteRecordRaw[] => rs.flatMap((r) => [r, ...flat(r.children ?? [])])
 
 describe('routes', () => {
+  it('includes every named route in the real-backend browser matrix', () => {
+    expect(pages.map((page) => page.name).sort()).toEqual(
+      flat(routes)
+        .flatMap((route) => (route.name ? [String(route.name)] : []))
+        .sort(),
+    )
+  })
   it('resolve every page component (missing pages throw at definition time)', () => {
     expect(flat(routes).length).toBeGreaterThan(40)
   })

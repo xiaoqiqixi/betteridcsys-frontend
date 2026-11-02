@@ -51,6 +51,7 @@ const mobileOpen = ref(false)
           <button
             class="flex h-8 w-full items-center gap-2 rounded-md px-2.5 text-[13px] text-muted hover:bg-surface-2 hover:text-fg"
             :aria-label="$t('nav.collapse')"
+            :aria-expanded="!prefs.sidebarCollapsed"
             :class="prefs.sidebarCollapsed && 'justify-center px-0'"
             @click="prefs.sidebarCollapsed = !prefs.sidebarCollapsed"
           >

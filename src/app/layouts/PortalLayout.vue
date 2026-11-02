@@ -50,7 +50,14 @@ const groups = computed<NavGroup[]>(() => {
 <template>
   <ConsoleShell :groups="groups" home="/dashboard">
     <template #sidebar-top="{ collapsed }">
-      <UiButton to="/store" variant="primary" :block="!collapsed" :square="collapsed" class="mb-4">
+      <UiButton
+        to="/store"
+        variant="primary"
+        :block="!collapsed"
+        :square="collapsed"
+        :aria-label="$t('nav.newService')"
+        class="mb-4"
+      >
         <Plus class="size-4" /><span v-if="!collapsed">{{ $t('nav.newService') }}</span>
       </UiButton>
     </template>
