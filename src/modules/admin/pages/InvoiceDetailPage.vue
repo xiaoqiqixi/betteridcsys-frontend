@@ -3,7 +3,7 @@ import { AlertTriangle, Ban, Banknote, Undo2 } from '@lucide/vue'
 import { computed, reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
-import { api } from '@/contract'
+import { api } from '@/contract/admin-endpoints'
 import { useApiMutation, useApiQuery } from '@/shared/api/query'
 import { useErrorText } from '@/shared/composables/errors'
 import { useFormat } from '@/shared/composables/format'
@@ -102,7 +102,7 @@ function openPay() {
           ><p class="mt-1 text-[13px] text-muted">
             <RouterLink
               :to="{ name: 'admin-client', params: { id: inv.client_id } }"
-              class="text-fg-2 hover:text-primary"
+              class="text-fg-2 underline underline-offset-2 hover:text-primary"
               >{{ inv.client_email }}</RouterLink
             >
             · {{ $t(`invoice.kind.${inv.kind}`) }} · {{ $t('invoice.due') }} <UiTime :value="inv.due_at" /></p

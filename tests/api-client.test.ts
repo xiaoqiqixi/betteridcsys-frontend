@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import { api } from '@/contract'
+import { api } from '@/contract/admin-endpoints'
 import { ApiClient, type TransportRequest, type TransportResponse } from '@/shared/api/client'
 import { ApiError } from '@/shared/api/errors'
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, reactive, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { api, type Locale } from '@/contract'
+import { api, type Locale } from '@/contract/client-endpoints'
 import { useApiMutation, useApiQuery } from '@/shared/api/query'
 import { useErrorText } from '@/shared/composables/errors'
 import { useSite } from '@/shared/composables/site'

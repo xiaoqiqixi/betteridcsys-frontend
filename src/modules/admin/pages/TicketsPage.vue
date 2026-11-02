@@ -2,7 +2,7 @@
 import { LifeBuoy } from '@lucide/vue'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { api } from '@/contract'
+import { api } from '@/contract/admin-endpoints'
 import type { TicketStatus } from '@/contract/support'
 import { useApiList, useApiQuery } from '@/shared/api/query'
 import { useFormat } from '@/shared/composables/format'

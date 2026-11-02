@@ -2,7 +2,7 @@
 import { Laptop, Smartphone } from '@lucide/vue'
 import { computed, reactive } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { api } from '@/contract'
+import { api } from '@/contract/client-endpoints'
 import { useApiList, useApiMutation, useApiQuery } from '@/shared/api/query'
 import { confirm } from '@/shared/composables/confirm'
 import { useErrorText } from '@/shared/composables/errors'

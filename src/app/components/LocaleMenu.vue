@@ -45,6 +45,7 @@ const items = computed(() => {
 <template>
   <UiDropdown :items="items" width="w-48">
     <button
+      :aria-label="$t('common.language')"
       class="inline-flex h-8 items-center gap-1.5 rounded-md px-2 text-[13px] text-muted transition-colors hover:bg-surface-2 hover:text-fg"
     >
       <Languages class="size-4" />

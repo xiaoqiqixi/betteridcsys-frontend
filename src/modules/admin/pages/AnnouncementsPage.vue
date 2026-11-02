@@ -2,7 +2,7 @@
 import { Megaphone, Pin, Plus, Trash2 } from '@lucide/vue'
 import { reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { api, type LocalizedText } from '@/contract'
+import { api, type LocalizedText } from '@/contract/admin-endpoints'
 import { useApiMutation, useApiQuery } from '@/shared/api/query'
 import { confirm } from '@/shared/composables/confirm'
 import { useErrorText } from '@/shared/composables/errors'

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { BillingCycle } from '@/contract'
+import type { BillingCycle } from '@/contract/admin-endpoints'
 import type { PricePoint } from '@/contract/commerce'
 import type { Currency } from '@/contract/site'
 import { useFormat } from '@/shared/composables/format'

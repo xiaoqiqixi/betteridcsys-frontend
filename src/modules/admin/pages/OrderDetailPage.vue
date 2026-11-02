@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
-import { api } from '@/contract'
+import { api } from '@/contract/admin-endpoints'
 import { useApiMutation, useApiQuery } from '@/shared/api/query'
 import { useErrorText } from '@/shared/composables/errors'
 import { useFormat } from '@/shared/composables/format'
@@ -46,7 +46,7 @@ const cancel = useApiMutation(api.admin.cancelOrder, {
           <p class="mt-1 text-[13px] text-muted">
             <RouterLink
               :to="{ name: 'admin-client', params: { id: o.client_id } }"
-              class="text-fg-2 hover:text-primary"
+              class="text-fg-2 underline underline-offset-2 hover:text-primary"
               >{{ o.client_email }}</RouterLink
             >
             · <UiTime :value="o.created_at" mode="datetime" />

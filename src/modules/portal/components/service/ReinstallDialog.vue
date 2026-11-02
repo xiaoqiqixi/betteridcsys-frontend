@@ -2,7 +2,7 @@
 import { AlertTriangle } from '@lucide/vue'
 import { computed, reactive, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { api } from '@/contract'
+import { api } from '@/contract/client-endpoints'
 import type { Service } from '@/contract/commerce'
 import OsPicker from '@/modules/store/components/OsPicker.vue'
 import { generatePassword, passwordStrongEnough } from '@/modules/store/lib/password'

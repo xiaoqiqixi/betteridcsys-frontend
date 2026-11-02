@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { api } from '@/contract'
+import { api } from '@/contract/client-endpoints'
 import type { Service } from '@/contract/commerce'
 import { generatePassword, passwordStrongEnough } from '@/modules/store/lib/password'
 import { useApiMutation } from '@/shared/api/query'

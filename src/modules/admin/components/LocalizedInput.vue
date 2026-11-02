@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { Locale, LocalizedText } from '@/contract'
+import type { Locale, LocalizedText } from '@/contract/admin-endpoints'
 import UiInput from '@/shared/ui/UiInput.vue'
 import UiTextarea from '@/shared/ui/UiTextarea.vue'
 

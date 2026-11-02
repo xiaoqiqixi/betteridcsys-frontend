@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { api, type AnyEndpoint } from '@/contract'
+import { api, type AnyEndpoint } from '@/contract/admin-endpoints'
 
 const all: AnyEndpoint[] = Object.values(api).flatMap((g) => Object.values(g) as AnyEndpoint[])
 

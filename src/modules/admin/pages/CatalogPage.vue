@@ -2,7 +2,7 @@
 import { ChevronRight, Plus, Trash2 } from '@lucide/vue'
 import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { api } from '@/contract'
+import { api } from '@/contract/admin-endpoints'
 import type { CatalogTaxonomy } from '@/contract/site'
 import { useApiMutation, useApiQuery } from '@/shared/api/query'
 import { useErrorText } from '@/shared/composables/errors'
@@ -181,7 +181,7 @@ const canWrite = computed(() => session.can('products.write'))
                     <li v-for="n in draft.nodes.filter((x) => x.region_id === r.id)" :key="n.id">
                       <button
                         :class="[
-                          'w-full px-4 py-0.5 text-left text-xs',
+                          'min-h-6 w-full px-4 py-0.5 text-left text-xs',
                           selected?.id === n.id ? 'text-primary' : 'text-muted hover:text-primary',
                         ]"
                         @click="selected = { kind: 'node', id: n.id }"
@@ -191,7 +191,7 @@ const canWrite = computed(() => session.can('products.write'))
                     </li>
                     <li v-if="canWrite">
                       <button
-                        class="px-4 py-0.5 text-xs text-faint hover:text-primary"
+                        class="min-h-6 px-4 py-0.5 text-xs text-faint hover:text-primary"
                         @click="addNode(r.id)"
                       >
                         + {{ $t('admin.catalog.addNode') }}

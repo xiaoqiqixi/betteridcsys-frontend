@@ -18,7 +18,7 @@ import {
 import { computed, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
-import { api, type BillingCycle } from '@/contract'
+import { api, type BillingCycle } from '@/contract/client-endpoints'
 import type { PricePoint } from '@/contract/commerce'
 import { useApiQuery } from '@/shared/api/query'
 import { useErrorText } from '@/shared/composables/errors'

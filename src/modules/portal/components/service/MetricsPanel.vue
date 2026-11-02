@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { api } from '@/contract'
+import { api } from '@/contract/client-endpoints'
 import type { Service } from '@/contract/commerce'
 import { useApiQuery } from '@/shared/api/query'
 import { useFormat } from '@/shared/composables/format'

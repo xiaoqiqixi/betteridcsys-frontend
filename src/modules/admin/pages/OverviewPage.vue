@@ -2,7 +2,7 @@
 import { AlertTriangle, ArrowRight, LifeBuoy, Receipt, Server, ShoppingBag, Users } from '@lucide/vue'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { api } from '@/contract'
+import { api } from '@/contract/admin-endpoints'
 import { useApiQuery } from '@/shared/api/query'
 import { useFormat } from '@/shared/composables/format'
 import { useSite } from '@/shared/composables/site'

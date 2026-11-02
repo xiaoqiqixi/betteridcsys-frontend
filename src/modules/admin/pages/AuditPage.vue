@@ -2,7 +2,7 @@
 import { ScrollText } from '@lucide/vue'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { api } from '@/contract'
+import { api } from '@/contract/admin-endpoints'
 import { useApiList } from '@/shared/api/query'
 import UiEmpty from '@/shared/ui/UiEmpty.vue'
 import UiErrorState from '@/shared/ui/UiErrorState.vue'

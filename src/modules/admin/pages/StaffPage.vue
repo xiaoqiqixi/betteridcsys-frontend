@@ -2,7 +2,7 @@
 import { Plus, ShieldCheck, UserPlus } from '@lucide/vue'
 import { computed, reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { api } from '@/contract'
+import { api } from '@/contract/admin-endpoints'
 import type { StaffRole } from '@/contract/admin'
 import { Permission } from '@/contract/identity'
 import { useApiMutation, useApiQuery } from '@/shared/api/query'

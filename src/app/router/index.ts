@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, type RouteLocationNormalized } from 'vue-router'
 import { useSession } from '@/shared/stores/session'
 import { routes } from './routes'
+import { enablePrivateMessages } from '@/shared/i18n'
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -31,5 +32,6 @@ router.beforeEach(async (to) => {
   if (need === 'staff' && user?.role !== 'admin') return '/dashboard'
   const permission = to.meta.permission
   if (permission && !session.can(permission)) return { name: 'admin-forbidden' }
+  if (need === 'client' || need === 'staff') await enablePrivateMessages()
   return true
 })

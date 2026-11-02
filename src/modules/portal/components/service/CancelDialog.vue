@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { api } from '@/contract'
+import { api } from '@/contract/client-endpoints'
 import type { Service } from '@/contract/commerce'
 import { useApiMutation } from '@/shared/api/query'
 import { useErrorText } from '@/shared/composables/errors'

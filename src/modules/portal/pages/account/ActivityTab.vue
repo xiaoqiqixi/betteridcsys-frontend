@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { History } from '@lucide/vue'
-import { api } from '@/contract'
+import { api } from '@/contract/client-endpoints'
 import { useApiList } from '@/shared/api/query'
 import UiErrorState from '@/shared/ui/UiErrorState.vue'
 import UiCard from '@/shared/ui/UiCard.vue'

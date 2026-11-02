@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import { api, type BillingCycle } from '@/contract'
+import { api, type BillingCycle } from '@/contract/client-endpoints'
 import type { Service } from '@/contract/commerce'
 import { useApiMutation } from '@/shared/api/query'
 import { useErrorText } from '@/shared/composables/errors'

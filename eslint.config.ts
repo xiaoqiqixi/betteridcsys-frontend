@@ -4,7 +4,18 @@ import globals from 'globals'
 import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
-  { ignores: ['dist/**', 'node_modules/**', 'contract/**', 'public/theme-init.js', 'scripts/*.py'] },
+  {
+    ignores: [
+      'dist/**',
+      'node_modules/**',
+      'artifacts/**',
+      'test-results/**',
+      'playwright-report/**',
+      'contract/**',
+      'public/theme-init.js',
+      'scripts/*.py',
+    ],
+  },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   ...pluginVue.configs['flat/recommended'],

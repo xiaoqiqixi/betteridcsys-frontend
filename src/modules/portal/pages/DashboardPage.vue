@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ArrowRight, CalendarClock, LifeBuoy, Plus, Receipt, Server, Wallet } from '@lucide/vue'
 import { computed } from 'vue'
-import { api } from '@/contract'
+import { api } from '@/contract/client-endpoints'
 import { useApiQuery } from '@/shared/api/query'
 import { useFormat } from '@/shared/composables/format'
 import { useSession } from '@/shared/stores/session'

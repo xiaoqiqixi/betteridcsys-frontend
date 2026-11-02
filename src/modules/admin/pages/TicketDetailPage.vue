@@ -2,7 +2,7 @@
 import { Lock, Send } from '@lucide/vue'
 import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { api } from '@/contract'
+import { api } from '@/contract/admin-endpoints'
 import type { TicketPriority, TicketStatus } from '@/contract/support'
 import { useApiMutation, useApiQuery } from '@/shared/api/query'
 import { useErrorText } from '@/shared/composables/errors'
@@ -69,7 +69,7 @@ const canWrite = computed(() => session.can('tickets.write'))
             <span class="font-mono">#{{ tk.number }}</span> ·
             <RouterLink
               :to="{ name: 'admin-client', params: { id: tk.client_id } }"
-              class="text-fg-2 hover:text-primary"
+              class="text-fg-2 underline underline-offset-2 hover:text-primary"
               >{{ tk.client_email }}</RouterLink
             ><template v-if="tk.service_id">
               ·

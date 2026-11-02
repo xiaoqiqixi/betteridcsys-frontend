@@ -2,8 +2,12 @@
 import { readdirSync, readFileSync, statSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
-import en from '@/shared/i18n/en'
-import zh from '@/shared/i18n/zh-CN'
+import publicEn from '@/shared/i18n/en'
+import privateEn from '@/shared/i18n/en-private'
+import publicZh from '@/shared/i18n/zh-CN'
+import privateZh from '@/shared/i18n/zh-CN-private'
+const en = { ...publicEn, ...privateEn }
+const zh = { ...publicZh, ...privateZh }
 
 type Tree = { [k: string]: string | Tree }
 const leaves = (t: Tree, p = ''): string[] =>

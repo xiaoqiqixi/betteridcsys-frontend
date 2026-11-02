@@ -2,7 +2,7 @@
 import { Server } from '@lucide/vue'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { api } from '@/contract'
+import { api } from '@/contract/admin-endpoints'
 import type { ServiceStatus } from '@/contract/commerce'
 import { useApiList } from '@/shared/api/query'
 import UiCopy from '@/shared/ui/UiCopy.vue'

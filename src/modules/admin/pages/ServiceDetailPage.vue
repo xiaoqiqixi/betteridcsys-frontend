@@ -4,7 +4,7 @@ import { computed, reactive, ref, watch, watchEffect } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import type { z } from 'zod'
-import { api } from '@/contract'
+import { api } from '@/contract/admin-endpoints'
 import type { AdminServiceAction } from '@/contract/admin'
 import { useApiMutation, useApiQuery } from '@/shared/api/query'
 import { useErrorText } from '@/shared/composables/errors'
@@ -140,7 +140,7 @@ const powerItems = computed<MenuItem[]>(() => [
           <p class="mt-1 text-[13px] text-muted">
             <RouterLink
               :to="{ name: 'admin-client', params: { id: s.client_id } }"
-              class="text-fg-2 hover:text-primary"
+              class="text-fg-2 underline underline-offset-2 hover:text-primary"
               >{{ s.client_email }}</RouterLink
             >
             · {{ s.product_name }} · {{ s.region }} · <span class="font-mono text-xs">{{ s.id }}</span>

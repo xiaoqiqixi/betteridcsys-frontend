@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { TooltipProvider } from 'reka-ui'
-import { watch, watchEffect } from 'vue'
+import { defineAsyncComponent, watch, watchEffect } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import { useSite } from '@/shared/composables/site'
 import { setLocale, detectLocale } from '@/shared/i18n'
 import { usePrefs } from '@/shared/stores/prefs'
 import { useSession } from '@/shared/stores/session'
-import ConfirmHost from '@/shared/ui/ConfirmHost.vue'
+import { confirmState } from '@/shared/composables/confirm'
+const ConfirmHost = defineAsyncComponent(() => import('@/shared/ui/ConfirmHost.vue'))
 import UiToaster from '@/shared/ui/UiToaster.vue'
 
 const site = useSite()
@@ -34,6 +35,6 @@ watchEffect(() => {
   <TooltipProvider>
     <RouterView />
     <UiToaster />
-    <ConfirmHost />
+    <ConfirmHost v-if="confirmState.current" />
   </TooltipProvider>
 </template>

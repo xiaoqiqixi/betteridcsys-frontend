@@ -2,7 +2,7 @@
 import { computed, reactive } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
-import { api } from '@/contract'
+import { api } from '@/contract/client-endpoints'
 import type { TicketPriority } from '@/contract/support'
 import { useApiMutation, useApiQuery } from '@/shared/api/query'
 import { useErrorText } from '@/shared/composables/errors'

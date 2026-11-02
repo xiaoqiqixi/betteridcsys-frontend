@@ -20,7 +20,7 @@ import {
 import { computed, ref, watchEffect } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
-import { api } from '@/contract'
+import { api } from '@/contract/client-endpoints'
 import type { ServiceTask } from '@/contract/commerce'
 import { useApiMutation, useApiQuery } from '@/shared/api/query'
 import { confirm } from '@/shared/composables/confirm'
@@ -458,6 +458,7 @@ const powerMenu = computed<MenuItem[]>(() => [
       <UiDialog v-model:open="dialogs.rename" :title="$t('service.rename')" size="sm">
         <UiInput
           v-model="label"
+          :aria-label="$t('service.rename')"
           maxlength="80"
           :placeholder="s.hostname || s.product_name"
           @keydown.enter="saveLabel"

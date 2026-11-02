@@ -2,7 +2,7 @@
 import { Plus, Server } from '@lucide/vue'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { api } from '@/contract'
+import { api } from '@/contract/client-endpoints'
 import type { ServiceStatus } from '@/contract/commerce'
 import { useApiList } from '@/shared/api/query'
 import UiButton from '@/shared/ui/UiButton.vue'

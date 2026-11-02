@@ -13,7 +13,7 @@ import {
 } from '@lucide/vue'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { api } from '@/contract'
+import { api } from '@/contract/client-endpoints'
 import { useApiQuery } from '@/shared/api/query'
 import { useCart } from '@/shared/stores/cart'
 import UiButton from '@/shared/ui/UiButton.vue'

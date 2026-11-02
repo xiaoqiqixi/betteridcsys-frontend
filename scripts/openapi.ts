@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { api, type AnyEndpoint } from '../src/contract'
+import { api, type AnyEndpoint } from '../src/contract/admin-endpoints'
 
 /**
  * Export the endpoint registry as OpenAPI 3.1. The Go backend implements this document;

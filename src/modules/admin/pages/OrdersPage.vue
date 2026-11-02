@@ -2,7 +2,7 @@
 import { ShoppingBag } from '@lucide/vue'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { api } from '@/contract'
+import { api } from '@/contract/admin-endpoints'
 import { useApiList } from '@/shared/api/query'
 import UiEmpty from '@/shared/ui/UiEmpty.vue'
 import UiErrorState from '@/shared/ui/UiErrorState.vue'
@@ -65,7 +65,11 @@ const columns = computed(() => [
         :loading="list.isPending.value"
       >
         <template #cell-number="{ row }"
-          ><span class="font-mono text-[13px] font-medium">#{{ row.number }}</span></template
+          ><RouterLink
+            :to="{ name: 'admin-order', params: { id: row.id } }"
+            class="font-mono text-[13px] font-medium"
+            >#{{ row.number }}</RouterLink
+          ></template
         >
         <template #cell-client="{ row }"
           ><RouterLink

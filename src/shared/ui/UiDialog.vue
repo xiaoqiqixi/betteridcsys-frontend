@@ -30,6 +30,7 @@ withDefaults(
         class="fixed inset-0 z-50 bg-overlay backdrop-blur-[2px] data-[state=open]:animate-fade-in"
       />
       <DialogContent
+        v-bind="description ? {} : { 'aria-describedby': undefined }"
         :class="[
           'fixed top-1/2 left-1/2 z-50 flex max-h-[min(88dvh,820px)] w-[calc(100vw-24px)] -translate-x-1/2 -translate-y-1/2 flex-col',
           'rounded-xl border border-line bg-elevated shadow-lg outline-none data-[state=open]:animate-pop',

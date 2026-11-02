@@ -2,7 +2,7 @@
 import { Camera, RotateCcw, Trash2 } from '@lucide/vue'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { api } from '@/contract'
+import { api } from '@/contract/client-endpoints'
 import type { Service } from '@/contract/commerce'
 import { useApiMutation, useApiQuery } from '@/shared/api/query'
 import { confirm } from '@/shared/composables/confirm'

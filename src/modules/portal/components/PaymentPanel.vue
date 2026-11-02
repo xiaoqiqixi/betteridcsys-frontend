@@ -2,7 +2,7 @@
 import { Building2, CreditCard, Landmark, QrCode, Wallet } from '@lucide/vue'
 import { computed, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { api } from '@/contract'
+import { api } from '@/contract/client-endpoints'
 import type { Invoice, PayResult } from '@/contract/commerce'
 import { useApiMutation, useApiQuery } from '@/shared/api/query'
 import { useErrorText } from '@/shared/composables/errors'
@@ -115,7 +115,7 @@ const qrOpen = computed({
   <div class="flex flex-col gap-4">
     <UiSkeleton v-if="gateways.isPending.value" :lines="3" height="h-12" />
     <template v-else>
-      <div class="grid gap-2" role="radiogroup" :aria-label="$t('invoice.payWith')">
+      <div class="grid min-w-0 grid-cols-1 gap-2" role="radiogroup" :aria-label="$t('invoice.payWith')">
         <button
           v-if="creditBalance && creditBalance.amount_minor > 0"
           type="button"
@@ -134,7 +134,7 @@ const qrOpen = computed({
           /></span>
           <span class="min-w-0 flex-1">
             <span class="block text-sm font-medium">{{ $t('invoice.accountCredit') }}</span>
-            <span class="block text-xs text-muted">{{
+            <span class="block text-xs text-fg-2">{{
               $t('checkout.creditAvailable', { amount: f.money(creditBalance) })
             }}</span>
           </span>
@@ -166,7 +166,7 @@ const qrOpen = computed({
           /></span>
           <span class="min-w-0 flex-1">
             <span class="block text-sm font-medium">{{ f.text(g.name) }}</span>
-            <span v-if="g.description" class="block truncate text-xs text-muted">{{
+            <span v-if="g.description" class="block truncate text-xs text-fg-2">{{
               f.text(g.description)
             }}</span>
           </span>

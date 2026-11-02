@@ -121,12 +121,7 @@ const sortOptions = computed(() => [
         <div class="flex items-center gap-2">
           <UiSegmented v-if="cycles.length > 1" v-model="cycle" :options="cycles" size="sm" />
           <div class="w-44">
-            <UiSelect
-              :aria-label="$t('admin.product.sortOrder')"
-              v-model="sort"
-              :options="sortOptions"
-              size="sm"
-            />
+            <UiSelect :aria-label="$t('store.sortLabel')" v-model="sort" :options="sortOptions" size="sm" />
           </div>
         </div>
       </div>

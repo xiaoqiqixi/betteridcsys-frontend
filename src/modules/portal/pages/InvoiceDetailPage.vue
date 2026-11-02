@@ -2,7 +2,7 @@
 import { Printer } from '@lucide/vue'
 import { computed, ref, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
-import { api } from '@/contract'
+import { api } from '@/contract/client-endpoints'
 import { useApiQuery } from '@/shared/api/query'
 import { useFormat } from '@/shared/composables/format'
 import { useSite } from '@/shared/composables/site'
@@ -45,7 +45,7 @@ const print = () => window.print()
         >
       </UiPageHeader>
 
-      <div class="grid gap-6 lg:grid-cols-[1fr_360px]">
+      <div class="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
         <article
           class="rounded-xl border border-line bg-surface p-6 shadow-xs sm:p-10 print:border-0 print:p-0 print:shadow-none"
         >

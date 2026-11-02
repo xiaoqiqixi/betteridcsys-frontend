@@ -3,7 +3,7 @@ import { Wallet } from '@lucide/vue'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
-import { api } from '@/contract'
+import { api } from '@/contract/client-endpoints'
 import { useApiList, useApiMutation, useApiQuery } from '@/shared/api/query'
 import { useErrorText } from '@/shared/composables/errors'
 import { useFormat } from '@/shared/composables/format'
@@ -135,7 +135,7 @@ const columns = computed(() => [
             <RouterLink
               v-if="row.invoice_id"
               :to="{ name: 'invoice', params: { id: row.invoice_id } }"
-              class="text-primary hover:underline"
+              class="text-primary underline underline-offset-2"
               >{{ $t('billing.viewInvoice') }}</RouterLink
             >
           </p>

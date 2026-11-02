@@ -2,7 +2,7 @@
 import { ArrowUpCircle, Plus, RefreshCw } from '@lucide/vue'
 import { computed, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { api } from '@/contract'
+import { api } from '@/contract/admin-endpoints'
 import type { CurrencyRegistry, SiteSettings } from '@/contract/site'
 import { useApiMutation, useApiQuery } from '@/shared/api/query'
 import { useErrorText } from '@/shared/composables/errors'
