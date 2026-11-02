@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Camera, RotateCcw, Trash2 } from '@lucide/vue'
-import { computed, ref } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { api } from '@/contract/client-endpoints'
 import type { Service } from '@/contract/commerce'
@@ -20,12 +20,13 @@ const props = defineProps<{ service: Service }>()
 const { t } = useI18n()
 const toast = useToast()
 const errors = useErrorText()
+const busy = ref(false)
 const list = useApiQuery(api.services.snapshots, () => ({ params: { id: props.service.id } }), {
   refetchInterval: (): number | false => (busy.value ? 4000 : false),
 })
-const busy = computed(
-  (): boolean => !!list.data.value?.items.some((s) => s.status === 'creating' || s.status === 'restoring'),
-)
+watchEffect(() => {
+  busy.value = !!list.data.value?.items.some((s) => s.status === 'creating' || s.status === 'restoring')
+})
 const name = ref('')
 const stoppedOk = computed(() => !list.data.value?.requires_stopped || props.service.power === 'stopped')
 const full = computed(
