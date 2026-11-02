@@ -338,3 +338,53 @@ test.describe('RBAC', () => {
     expect(response.status()).toBe(403)
   })
 })
+
+test.describe('affiliate administration', () => {
+  test.use({ storageState: 'artifacts/e2e/client.json' })
+  test('activate, save percentage rules, edit an affiliate and reject an unfunded payout', async ({
+    page,
+    browser,
+  }) => {
+    await page.goto('/affiliate')
+    const join = page.getByRole('button', { name: 'Get my referral link', exact: true })
+    await expect(join).toBeVisible()
+    const activated = page.waitForResponse((r) => r.url().endsWith('/affiliate/activate'))
+    await join.click()
+    const activation = await activated
+    expect(activation.status()).toBe(200)
+    const data = (await activation.json()).data
+    expect(data.balances).toEqual(expect.arrayContaining([expect.objectContaining({ currency: 'CNY' })]))
+    await expect(page.getByText('Your referral link', { exact: true })).toBeVisible()
+    const context = await browser.newContext({
+      storageState: 'artifacts/e2e/owner.json',
+      ignoreHTTPSErrors: true,
+    })
+    await context.addInitScript(() => localStorage.setItem('bis.prefs.v1', JSON.stringify({ locale: 'en' })))
+    const staff = await context.newPage()
+    await staff.goto((process.env.E2E_BASE_URL || 'https://localhost:5178') + '/admin/affiliate')
+    await staff.getByLabel('Commission rate', { exact: true }).fill('12.34')
+    const saved = staff.waitForResponse(
+      (r) => r.url().endsWith('/admin/affiliate/settings') && r.request().method() === 'PATCH',
+    )
+    await staff.getByRole('button', { name: 'Save changes', exact: true }).click()
+    const response = await saved
+    expect(response.status()).toBe(200)
+    expect(response.request().postDataJSON().default_rate_bp).toBe(1234)
+    await staff.reload()
+    await expect(staff.getByLabel('Commission rate', { exact: true })).toHaveValue('12.34')
+    await staff.getByRole('row').filter({ hasText: 'client@fe2.test' }).getByRole('button').click()
+    const dialog = staff.getByRole('dialog')
+    await dialog.getByLabel('Commission rate', { exact: true }).fill('0')
+    await dialog.getByLabel('Internal note', { exact: true }).fill('AFF-1 browser verification')
+    const patched = staff.waitForResponse(
+      (r) =>
+        /\/admin\/affiliates\/[^/]+$/.test(new URL(r.url()).pathname) && r.request().method() === 'PATCH',
+    )
+    await dialog.getByRole('button', { name: 'Save changes', exact: true }).click()
+    const patch = await patched
+    expect(patch.status()).toBe(200)
+    expect((await patch.json()).data.rate_bp).toBe(0)
+    await expect(dialog.getByRole('button', { name: 'Record manual payout', exact: true })).toBeDisabled()
+    await context.close()
+  })
+})

@@ -71,7 +71,6 @@ const numbers = [
   'suspend_after_days',
   'terminate_after_days',
   'cancel_unpaid_orders_after_days',
-  'affiliate_hold_days',
   'ticket_autoclose_hours',
 ] as const
 const columns = computed(() => [
