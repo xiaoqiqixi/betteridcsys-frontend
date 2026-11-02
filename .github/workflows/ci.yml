@@ -13,17 +13,6 @@ jobs:
     name: Chromium against pinned backend and MySQL 8.4
     runs-on: ubuntu-24.04
     timeout-minutes: 25
-    services:
-      mysql:
-        image: mysql:8.4
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-          MYSQL_DATABASE: fe2_test
-        ports:
-          - 3306:3306
-        options: >-
-          --health-cmd="mysqladmin ping --silent"
-          --health-interval=5s --health-timeout=5s --health-retries=30
     env:
       E2E_SEED: '1'
       PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/artifacts/browsers
@@ -31,6 +20,10 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           persist-credentials: false
+      - name: Start MySQL 8.4 with a shared local Unix socket
+        run: |
+          mkdir -p artifacts/mysql-data artifacts/mysql-run
+          docker compose -f scripts/e2e/compose.yaml up --detach --wait --wait-timeout 120
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
         with:
           node-version: '24.19.0'
@@ -51,6 +44,11 @@ jobs:
         run: bash scripts/e2e/start-linux.sh
       - name: Seed and exercise every route, workflows and accessibility
         run: npm run test:e2e
+      - name: Preserve MySQL diagnostics and stop the disposable database
+        if: always()
+        run: |
+          docker compose -f scripts/e2e/compose.yaml logs > artifacts/mysql.log
+          docker compose -f scripts/e2e/compose.yaml down --volumes
       - name: Preserve browser evidence and backend logs
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
@@ -61,6 +59,7 @@ jobs:
             test-results/
             artifacts/e2e/results.json
             artifacts/backend.log
+            artifacts/mysql.log
           retention-days: 7
   frontend:
     runs-on: ubuntu-24.04

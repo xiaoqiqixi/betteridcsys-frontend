@@ -36,6 +36,10 @@
 
 `npm run typecheck`、`npm run lint`、`npm test`（37 项）、`npm run build -- --manifest`、`npm run check:initial-js`、`npm run format:check`；Python 静态包测试 18 项、发布源校验测试 9 项；完整 Playwright 29 项。生成的 OpenAPI 与重构前完全相同，既有测试未删除或放宽。最后增补的折叠侧栏名称和状态另有针对性键盘复测。
 
+## CI 环境修复
+
+首轮新增 E2E 作业（`edfc06d`，run `41377418912`）在迁移前连接数据库失败：Core 的 `MYSQL_ALLOW_INSECURE=true` 只允许绝对路径的本地 Unix socket，而首版 CI 使用了明文 TCP。已改为 Compose 共享 Unix socket，并保留完整安全校验；没有改后端或放宽 TLS。原有 frontend 作业在该运行中通过。这是本次新增 CI 配置的问题，不是历史 main 已红。
+
 ## 需维护者处理
 
 后端负责人补齐 [契约缺口](CONTRACT_GAPS.md)，并决定是否继续支持密码下单，或通过双方确认的契约变更明确 SSH key 要求。当前成功 E2E 覆盖后端支持的 SSH key 路径。

@@ -1,0 +1,16 @@
+name: fe2
+services:
+  mysql:
+    image: mysql:8.4.13
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_DATABASE: fe2_test
+    volumes:
+      - ../../artifacts/mysql-data:/var/lib/mysql
+      - ../../artifacts/mysql-run:/var/run/mysqld
+    healthcheck:
+      # The entrypoint uses a temporary server during initialization. Wait for its final exec.
+      test: ['CMD-SHELL', 'test "$$(cat /proc/1/comm)" = mysqld && mysqladmin ping --silent']
+      interval: 2s
+      timeout: 5s
+      retries: 60

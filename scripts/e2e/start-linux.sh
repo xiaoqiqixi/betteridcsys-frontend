@@ -4,7 +4,8 @@ set -euo pipefail
 cd "$(dirname "$0")/../.."
 export APP_MODE=production APP_ORIGIN=https://localhost:5178 LISTEN_ADDR=127.0.0.1:18080
 export SESSION_SECRET="$(cat artifacts/session-secret)"
-export MYSQL_DSN="${MYSQL_DSN:-root@tcp(127.0.0.1:3306)/fe2_test?parseTime=true}"
+export MYSQL_SOCKET="${MYSQL_SOCKET:-$PWD/artifacts/mysql-run/mysqld.sock}"
+export MYSQL_DSN="${MYSQL_DSN:-root@unix($MYSQL_SOCKET)/fe2_test?parseTime=true}"
 export MYSQL_ALLOW_INSECURE=true
 export PLUGIN_DIRECTORY=/opt/fe2/plugins PLUGIN_POLICY_FILE=/opt/fe2/policy.json
 bash scripts/e2e/bootstrap.sh

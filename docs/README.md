@@ -58,7 +58,7 @@ contract/openapi.json   由 src/contract 导出，供后端实现与测试
 
 ### 可复现的 Linux / CI 启动方式
 
-在一次性 Linux VM 中准备 Node 24.19.0、Go 1.26+、mysql 客户端、Docker、systemd、Python 3、openssl。CI 使用 Go 1.27.3。以下命令从仓库根目录执行；`install-bank.sh` 的 root 操作只用于这个可丢弃 VM。
+在一次性 Linux VM 中准备 Node 24.19.0、Go 1.26+、mysql 客户端、Docker Compose v2、systemd、Python 3、openssl。CI 使用 Go 1.27.3。以下命令从仓库根目录执行；`install-bank.sh` 的 root 操作只用于这个可丢弃 VM。
 
 ```sh
 mkdir -p artifacts/mysql-data
@@ -71,14 +71,11 @@ npm run e2e:prepare
 bash scripts/e2e/build-backend.sh
 
 # 全新、空的 fe2_test 数据库；不能指向工作数据库。
-docker run --detach --rm --name fe2-mysql \
-  --publish 127.0.0.1:13306:3306 \
-  --env MYSQL_ALLOW_EMPTY_PASSWORD=yes --env MYSQL_DATABASE=fe2_test \
-  --mount "type=bind,source=$PWD/artifacts/mysql-data,target=/var/lib/mysql" \
-  mysql:8.4.13
-export MYSQL_PORT=13306
-export MYSQL_DSN='root@tcp(127.0.0.1:13306)/fe2_test?parseTime=true'
-# 等 mysqladmin --protocol=tcp -h127.0.0.1 -P13306 -uroot ping 成功再继续。
+mkdir -p artifacts/mysql-data artifacts/mysql-run
+docker compose -f scripts/e2e/compose.yaml up --detach --wait --wait-timeout 120
+# Core 仅允许本地 Unix socket 的无 TLS 例外；不能用明文 TCP。
+export MYSQL_SOCKET="$PWD/artifacts/mysql-run/mysqld.sock"
+export MYSQL_DSN="root@unix($MYSQL_SOCKET)/fe2_test?parseTime=true"
 bash scripts/e2e/start-linux.sh
 
 # 第一个终端保持运行
@@ -90,7 +87,7 @@ npm run build -- --manifest
 npm run test:e2e
 ```
 
-运行 Docker 前创建空的 `artifacts/mysql-data`。每轮完整验收需要新数据库，避免重复注册同一测试用户；保留失败数据库用于排查，然后只重建自己的 `fe2_test`。`bootstrap.sh` 拒绝其他数据库名，执行真实迁移和 bootstrap CLI，再应用 `seed.sql`。`seed.mjs` 通过真实 API 建产品、价格、信用余额、工单和公告，并验证真实 bank-transfer 网关已就绪。CI 从全新 MySQL 8.4 容器启动，设置 `E2E_SEED=1`，在 Playwright 启动 HTTPS 开发服务器后自动 seed。
+Compose 把数据与 Unix socket 放在仓库内 `artifacts/mysql-data` / `artifacts/mysql-run`；healthcheck 同时检查最终 mysqld 已成为 PID 1，避免连接初始化阶段的临时服务器。每轮完整验收需要新数据库，避免重复注册同一测试用户；保留失败数据库用于排查，然后只重建自己的 `fe2_test`。`bootstrap.sh` 拒绝其他数据库名，执行真实迁移和 bootstrap CLI，再应用 `seed.sql`。`seed.mjs` 通过真实 API 建产品、价格、信用余额、工单和公告，并验证真实 bank-transfer 网关已就绪。CI 从全新 MySQL 8.4 容器启动，设置 `E2E_SEED=1`，在 Playwright 启动 HTTPS 开发服务器后自动 seed。
 
 ### 本次 macOS 原生 MySQL + Lima 布置
 
